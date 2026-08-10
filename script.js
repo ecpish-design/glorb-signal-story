@@ -1,5 +1,5 @@
 (() => {
-  const A = 'assets/';
+  const A = 'assests/';
 
   const mainPages = [
     {
