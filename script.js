@@ -592,8 +592,23 @@ Incident report: self monitored signal overload. Main physical response: angry e
           </div>
         </header>
 
-        <div class="signal-bin-grid" aria-label="Four signal sorting areas">
-          ${['steady', 'rising', 'overload', 'low'].map(signalBinMarkup).join('')}
+        <div class="sort-workspace">
+          <div class="signal-bin-grid" aria-label="Four signal sorting areas">
+            ${['steady', 'rising', 'overload', 'low'].map(signalBinMarkup).join('')}
+          </div>
+
+          <section class="clue-bank" id="clueBank" data-clue-bank tabindex="0">
+            <header class="clue-bank__header">
+              <div>
+                <span class="sort-mission__eyebrow">PAGES 46–47 // MIXED EVIDENCE</span>
+                <h3>EVIDENCE BANK</h3>
+              </div>
+              <p>${evidenceDeck.length - count} CLUES LEFT TO SORT</p>
+            </header>
+            <div class="clue-bank__grid">
+              ${clueBankMarkup()}
+            </div>
+          </section>
         </div>
 
         <div class="sort-actions">
@@ -618,18 +633,6 @@ Incident report: self monitored signal overload. Main physical response: angry e
             <button class="generate-reports" type="button" data-generate-reports>GENERATE REPORTS →</button>
           </div>` : ''}
 
-        <section class="clue-bank" id="clueBank" data-clue-bank tabindex="0">
-          <header class="clue-bank__header">
-            <div>
-              <span class="sort-mission__eyebrow">PAGES 46–47 // MIXED EVIDENCE</span>
-              <h3>EVIDENCE BANK</h3>
-            </div>
-            <p>${evidenceDeck.length - count} CLUES LEFT TO SORT</p>
-          </header>
-          <div class="clue-bank__grid">
-            ${clueBankMarkup()}
-          </div>
-        </section>
       </div>`;
 
     attachCategorySortListeners();

@@ -1162,3 +1162,90 @@ button, img { -webkit-tap-highlight-color: transparent; }
   .clue-card img { height: 110px; }
   .clue-card--body img, .clue-card--help img { height: 150px; }
 }
+
+/* Side evidence bank layout -------------------------------------------------
+   Desktop: keep the mixed evidence visible beside the four signal squares so
+   students have a much shorter drag distance. The bank stays in view while
+   the sorting squares scroll. On smaller screens it falls back underneath. */
+.sort-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
+  gap: 18px;
+  align-items: start;
+}
+
+.sort-workspace .signal-bin-grid {
+  padding: 14px;
+  margin: 0;
+}
+
+.sort-workspace .clue-bank {
+  position: sticky;
+  top: 14px;
+  max-height: calc(100vh - 28px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  padding: 13px;
+}
+
+.sort-workspace .clue-bank__header {
+  position: sticky;
+  top: -13px;
+  z-index: 8;
+  padding: 12px 0 10px;
+  margin: 0 0 10px;
+  background: #ece8e0;
+  border-bottom: 1px solid rgba(23,23,23,.12);
+}
+
+.sort-workspace .clue-bank.is-dragover .clue-bank__header {
+  background: #f7f4ee;
+}
+
+.sort-workspace .clue-bank__grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.sort-workspace .clue-card {
+  min-height: 92px;
+  padding: 6px;
+}
+
+.sort-workspace .clue-card img { height: 90px; }
+.sort-workspace .clue-card--emotions img { height: 84px; }
+.sort-workspace .clue-card--equation img { height: 72px; }
+.sort-workspace .clue-card--wave img,
+.sort-workspace .clue-card--symbol img { height: 66px; }
+.sort-workspace .clue-card--traits img { height: 102px; }
+.sort-workspace .clue-card--body img,
+.sort-workspace .clue-card--help img { height: 126px; }
+
+@media (max-width: 1180px) {
+  .sort-workspace {
+    grid-template-columns: minmax(0, 1fr) minmax(270px, 315px);
+    gap: 12px;
+  }
+  .sort-workspace .signal-bin-grid { gap: 12px; padding: 10px; }
+  .sort-workspace .signal-bin__canvas { min-height: 450px; }
+  .sort-workspace .clue-bank__grid { grid-template-columns: 1fr; }
+  .sort-workspace .clue-card img { height: 105px; }
+  .sort-workspace .clue-card--body img,
+  .sort-workspace .clue-card--help img { height: 145px; }
+}
+
+@media (max-width: 900px) {
+  .sort-workspace { display: grid; grid-template-columns: 1fr; }
+  .sort-workspace .clue-bank {
+    position: static;
+    max-height: none;
+    overflow: visible;
+  }
+  .sort-workspace .clue-bank__header { position: static; padding-top: 0; }
+  .sort-workspace .clue-bank__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (max-width: 720px) {
+  .sort-workspace .clue-bank__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
