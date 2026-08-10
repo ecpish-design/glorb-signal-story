@@ -39,7 +39,7 @@ Then open `http://localhost:8000`.
 - `index.html` — app structure and accessibility controls.
 - `styles.css` — responsive comic viewer and modal styling.
 - `script.js` — story order, hotspots, modal details, navigation and read-aloud.
-- `assets/29.svg` through `assets/43.svg` — supplied artwork, unchanged.
+- `assests/29.svg` through `assests/43.svg` — supplied artwork, unchanged.
 
 ## Read-aloud note
 
