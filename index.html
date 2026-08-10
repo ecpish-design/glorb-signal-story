@@ -10,18 +10,26 @@
 <body>
   <div class="app" id="app">
     <header class="topbar">
-      <div class="brand" aria-label="Glorb Earth Field Notes">
-        <span class="brand__dot" aria-hidden="true"></span>
-        <span>GLORB // EARTH FIELD NOTES</span>
+      <div class="topbar__identity">
+        <div class="brand" aria-label="Glorb Earth Field Notes">
+          <span class="brand__dot" aria-hidden="true"></span>
+          <span>GLORB // EARTH FIELD NOTES</span>
+        </div>
+        <button class="student-chip" id="studentChip" type="button" hidden>
+          <span>RESEARCHER</span>
+          <strong id="studentChipName"></strong>
+        </button>
       </div>
 
       <div class="topbar__tools">
-        <button class="icon-button" id="transcriptBtn" type="button" aria-label="Show page transcript" aria-expanded="false" title="Show transcript">
+        <button class="icon-button topbar-tool" id="transcriptBtn" type="button" aria-label="Show page transcript" aria-expanded="false" title="Show transcript">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14M5 9h14M5 13h9M5 17h11"/></svg>
+          <span>TEXT</span>
         </button>
-        <button class="icon-button" id="speakBtn" type="button" aria-label="Read this page aloud" aria-pressed="false" title="Read this page aloud">
+        <button class="icon-button topbar-tool" id="speakBtn" type="button" aria-label="Read this page aloud" aria-pressed="false" title="Read this page aloud">
           <svg class="speaker-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h4l5 4V6L8 10H4Z"/><path d="M16 9c1 .8 1.5 1.8 1.5 3S17 14.2 16 15M18.5 6.7c1.8 1.4 2.8 3.2 2.8 5.3s-1 4-2.8 5.3"/></svg>
           <svg class="stop-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1"/></svg>
+          <span>READ</span>
         </button>
       </div>
     </header>
@@ -31,6 +39,20 @@
         <span id="pageKicker">FLIGHT RECORDER</span>
         <span id="pageCounter">01 / 11</span>
       </div>
+
+      <section class="page-task" id="pageTask" aria-live="polite">
+        <div class="page-task__step" id="pageTaskStep" aria-hidden="true">1</div>
+        <div class="page-task__copy">
+          <span class="page-task__eyebrow" id="pageTaskEyebrow">YOUR TASK</span>
+          <strong id="pageTaskTitle">READ OR LISTEN</strong>
+          <p id="pageTaskText">Follow Glorb's story, then press Next.</p>
+          <div class="page-task__progress" id="pageTaskProgress" hidden></div>
+        </div>
+        <div class="page-task__actions">
+          <button class="page-task__button" id="pageZoomBtn" type="button">ZOOM PAGE +</button>
+          <button class="page-task__button page-task__button--dark" id="pageReadBtn" type="button">READ ALOUD ▶</button>
+        </div>
+      </section>
 
       <section class="page-shell" id="pageShell">
         <div class="page-stage" id="pageStage">

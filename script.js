@@ -3,32 +3,64 @@
 
   const mainPages = [
     {
+      type: 'welcome',
+      kicker: 'MISSION BRIEF // EARTH SIGNALS',
+      title: 'GLORB’S EARTH SIGNALS MISSION',
+      transcript: `Welcome to Glorb’s Earth Signals Mission. Enter your name to begin. During the mission you will follow Glorb’s story, investigate Low, Steady, Rising and Overload signals, and sort visual clues into the signal they match.
+
+Learning intentions. I can identify the four signal states. I can use emotion, body and behaviour clues to decide what signal someone may be showing. I can notice when a signal is changing. I can choose a helpful response that matches the signal.`
+    },
+    {
       source: 'story-01-ship-going-down.svg',
       kicker: 'SOMEWHERE IN ZORBAX',
       title: 'SHIP IS GOING DOWN',
       alt: 'Glorb in his spaceship as the dashboard alarms, followed by his ship crashing.',
-      transcript: `Somewhere in Zorbax.\n\nShip is going down. I repeat, ship is going down. According to my notes, all elements are pointing to total signal meltdown... my ears, my dashboard and my... ship.`
+      transcript: `Somewhere in Zorbax.
+
+Ship is going down. I repeat, ship is going down. According to my notes, all elements are pointing to total signal meltdown... my ears, my dashboard and my... ship.`
     },
     {
       source: 'story-02-flight-recorder.svg',
       kicker: 'FLIGHT RECORDER // ENTRY 2',
       title: 'THE CRASH',
       alt: 'A taped photograph of Glorb’s wrecked ship with a handwritten research log underneath.',
-      transcript: `The signal from my ship didn't jump straight to danger. It climbed slowly, for six minutes, while I kept pushing the ship harder and harder.\n\nMy dashboard recorded every second of it. It alerted me. My body was alerting me too. I just wasn't listening. I wanted to see how fast it could go chasing those Gleborna aliens. I don't like them at all.\n\nThis was totally preventable. And it's all their fault. Ugh. Now I have to fix this.\n\nTo do: Fill out incident report form and mail it to Amy in A.R., Alien Resources. Review charted findings on previous data. Travel to Earth.`
+      transcript: `The signal from my ship didn't jump straight to danger. It climbed slowly, for six minutes, while I kept pushing the ship harder and harder.
+
+My dashboard recorded every second of it. It alerted me. My body was alerting me too. I just wasn't listening. I wanted to see how fast it could go chasing those Gleborna aliens. I don't like them at all.
+
+This was totally preventable. And it's all their fault. Ugh. Now I have to fix this.
+
+To do: Fill out incident report form and mail it to Amy in A.R., Alien Resources. Review charted findings on previous data. Travel to Earth.`
     },
     {
       source: 'story-03-dear-amy.svg',
       kicker: 'ALIEN RESOURCES // OUTGOING',
       title: 'DEAR AMY',
       alt: 'Glorb’s handwritten letter to Alien Resources clipped over his incident report.',
-      transcript: `Department of A.R., Alien Resources, Zorbax and Co.\n\nDear Amy, please find my incident report from today's “incident” attached. I have booked a small holiday home on Earth for some R plus R — Research and Reporting. I will be in touch with my findings. Please forward all correspondence there.\n\nMy ship is currently unavailable. Mostly because it exploded.\n\nThanks, Glorb.\n\nP.S. I am aware this is my third ship. P.P.S. Sorry.`
+      transcript: `Department of A.R., Alien Resources, Zorbax and Co.
+
+Dear Amy, please find my incident report from today's “incident” attached. I have booked a small holiday home on Earth for some R plus R — Research and Reporting. I will be in touch with my findings. Please forward all correspondence there.
+
+My ship is currently unavailable. Mostly because it exploded.
+
+Thanks, Glorb.
+
+P.S. I am aware this is my third ship. P.P.S. Sorry.`
     },
     {
       source: 'story-04-incident-report.svg',
       kicker: 'ZORBAX-9 RESEARCH DIVISION',
       title: 'INCIDENT REPORT',
       alt: 'Glorb’s formal incident report showing signal overload, his angry ears, and the crashed ship.',
-      transcript: `Zorbax-9 Research Division. Incident report form. Subject: self monitored signal overload. Location: in transit, Zorbax-9 orbital lane.\n\nOne. Signal identification. Name: signal overload. This is probably not good, considering the outcome. Three red exclamation marks: critical marking, highest importance.\n\nTwo. Physical response. Main physical response: angry ear. Pinned flat back against head. Reactive ear. Field note: ears pressed flat against the head. One of the clearest warning signs across the animal world. It usually means the animal feels overwhelmed, scared, or ready to react. Give space.\n\nThree. Observed outcome: not good.\n\nAnalyst summary: total signal meltdown. Preventable. Failure to react to rising signal. Systems overwhelmed. Monitor early warning signs.`
+      transcript: `Zorbax-9 Research Division. Incident report form. Subject: self monitored signal overload. Location: in transit, Zorbax-9 orbital lane.
+
+One. Signal identification. Name: signal overload. This is probably not good, considering the outcome. Three red exclamation marks: critical marking, highest importance.
+
+Two. Physical response. Main physical response: angry ear. Pinned flat back against head. Reactive ear. Field note: ears pressed flat against the head. One of the clearest warning signs across the animal world. It usually means the animal feels overwhelmed, scared, or ready to react. Give space.
+
+Three. Observed outcome: not good.
+
+Analyst summary: total signal meltdown. Preventable. Failure to react to rising signal. Systems overwhelmed. Monitor early warning signs.`
     },
     {
       source: 'story-05-timeline.svg',
@@ -36,29 +68,53 @@
       title: 'TIME LINE OF EVENTS',
       alt: 'A coloured timeline moving from low signal to steady signal, rising signal and signal overload.',
       interactive: 'incidents',
-      transcript: `Time line of events. Chart reading extracted from crash report.\n\nLow signal mode: woke up tired, couldn't start ship, just sank. Had breakfast, rested, played with Frog, the flying space dog.\n\nSteady signal: started flying, feeling a bit better, started listening to radio, great tunes, dancing a little while driving, having a good time.\n\nRising signal: saw those Gleborna aliens on the terrace. They made fun of my ears. They wouldn't stop even when I asked. Started chasing them. Saw rising signal flash on my dash. Ignored it.\n\nSignal overload: they kept making fun of my ears. Chased harder. Ignored all ship signals. Push, push, push.\n\nClick the four “see other similar incidents logged” notes to open Glorb's other examples.`
+      transcript: `Time line of events. Chart reading extracted from crash report.
+
+Low signal mode: woke up tired, couldn't start ship, just sank. Had breakfast, rested, played with Frog, the flying space dog.
+
+Steady signal: started flying, feeling a bit better, started listening to radio, great tunes, dancing a little while driving, having a good time.
+
+Rising signal: saw those Gleborna aliens on the terrace. They made fun of my ears. They wouldn't stop even when I asked. Started chasing them. Saw rising signal flash on my dash. Ignored it.
+
+Signal overload: they kept making fun of my ears. Chased harder. Ignored all ship signals. Push, push, push.
+
+Open the four similar incident logs to compare Glorb’s Low, Steady, Rising and Overload examples.`
     },
     {
       source: 'story-06-earth-day-23.svg',
       kicker: 'A FEW WEEKS LATER // ON EARTH',
       title: 'RESEARCH LOG // DAY 23',
       alt: 'Glorb’s Earth research log showing him dancing in Tom’s face at lunch while Tom becomes annoyed.',
-      transcript: `A few weeks later, on Earth. School playground: lunch.\n\nGlorb: research log, entry 14. Day 23 on Earth.\n\nI have not exploded anything. This feels like the correct amount of progress.\n\nHowever, today at lunch I went to sit next to my friend Tom. I started dancing in his face and shouting, “Let's have a party, Tommy boy, the world is ours and the day is young!” over and over because I saw someone on TV do it and the audience laughed.\n\nIt did not make Tom laugh. Instead, it had an unexpected outcome. Please see my attached drawings of the events that occurred.\n\nPlease turn page to see the outcome.`
+      transcript: `A few weeks later, on Earth. School playground: lunch.
+
+Glorb: research log, entry 14. Day 23 on Earth.
+
+I have not exploded anything. This feels like the correct amount of progress.
+
+However, today at lunch I went to sit next to my friend Tom. I started dancing in his face and shouting, “Let's have a party, Tommy boy, the world is ours and the day is young!” over and over because I saw someone on TV do it and the audience laughed.
+
+It did not make Tom laugh. Instead, it had an unexpected outcome. Please see my attached drawings of the events that occurred.
+
+Please turn page to see the outcome.`
     },
     {
       source: 'story-07-outcome.svg',
       kicker: 'SCHOOL PLAYGROUND // LUNCH',
       title: 'OUTCOME',
       alt: 'Tom pushes Glorb away after becoming increasingly upset.',
-      transcript: `Outcome.\n\nTommy did apologise for pushing me. However, someone also pointed out that I'd ignored his signals: the ones that showed he was getting more and more upset, long before it got to pushing.\n\nThat got me thinking. My ship has signals too. Maybe humans just wear theirs on the outside instead of on a dashboard. I think I need some help sorting them into the right categories.`
+      transcript: `Outcome.
+
+Tommy did apologise for pushing me. However, someone also pointed out that I'd ignored his signals: the ones that showed he was getting more and more upset, long before it got to pushing.
+
+That got me thinking. My ship has signals too. Maybe humans just wear theirs on the outside instead of on a dashboard. I think I need some help sorting them into the right categories.`
     },
     {
       source: 'story-08-signal-categories.svg',
       kicker: 'GLORB // HUMAN SIGNAL CATEGORIES',
-      title: 'CLICK TO FIND OUT MORE',
+      title: 'EXPLORE THE FOUR SIGNALS',
       alt: 'Glorb’s four signal categories: low signal, steady signal, rising signal and signal overload.',
       interactive: 'signals',
-      transcript: `I categorised human signals like this. Click each category to find out more. Low signal. Steady signal. Rising signal. Signal overload.`
+      transcript: `I categorised human signals like this. Open each category to find out more. Low signal. Steady signal. Rising signal. Signal overload.`
     },
     {
       source: 'story-09-summary.svg',
@@ -71,14 +127,20 @@
       type: 'sortboard',
       kicker: 'SORT MISSION // FOUR SIGNALS',
       title: 'SORT THE SIGNAL CLUES',
-      transcript: `Glorb has collected all of the signal evidence, but it is mixed up. Drag every clue into one of the four signal categories: steady signal, rising signal, signal overload or low signal. The clues can be placed anywhere inside the matching signal box. When every clue has been sorted, check your work. If the sort is correct, Glorb will generate the four completed field reports.`
+      transcript: `Glorb has collected the signal evidence, but it is mixed up. Sort each visual clue into Low, Steady, Rising or Overload. You can drag a clue, or tap a clue and then tap a signal square. Use Help Me, Glorb for a hint and Zoom for a closer look. When all 20 clues are placed, check your sort.`
     },
     {
       type: 'results',
       kicker: 'ZORBAX-9 // GENERATED REPORTS',
       title: 'GLORB’S COMPLETED SIGNAL REPORTS',
+      transcript: `Sort verified. Glorb has generated the completed field reports for Steady, Rising, Overload and Low signals. Open any report to see how the clues fit together.`
+    },
+    {
+      type: 'certificate',
+      kicker: 'MISSION COMPLETE // CERTIFICATE',
+      title: 'EARTH SIGNALS MISSION COMPLETE',
       final: true,
-      transcript: `Sort verified. Glorb has generated the completed field reports for steady signal, rising signal, signal overload and low signal. Open any report to view the full answer guide.`
+      transcript: `Mission complete. Your certificate confirms that you investigated the four signals, used visual clues to identify them, noticed how signals can change, and learned that different signals need different kinds of support.`
     }
   ];
 
@@ -169,10 +231,10 @@ Incident report: self monitored signal overload. Main physical response: angry e
   };
 
   const incidentHotspots = [
-    { id: 'low', label: 'Open low signal incident', x: 4.7, y: 78.8, w: 20.7, h: 4.4 },
-    { id: 'steady', label: 'Open steady signal incident', x: 32.6, y: 67.8, w: 20.9, h: 4.5 },
-    { id: 'rising', label: 'Open rising signal incident', x: 56.4, y: 66.3, w: 20.5, h: 4.4 },
-    { id: 'overload', label: 'Open signal overload incident', x: 78.2, y: 64.2, w: 20.0, h: 4.4 }
+    { id: 'low', label: 'Open low signal incident', x: 3.2, y: 77.1, w: 23.8, h: 7.4 },
+    { id: 'steady', label: 'Open steady signal incident', x: 31.0, y: 66.0, w: 23.8, h: 7.2 },
+    { id: 'rising', label: 'Open rising signal incident', x: 55.2, y: 64.4, w: 23.2, h: 7.2 },
+    { id: 'overload', label: 'Open signal overload incident', x: 77.0, y: 62.1, w: 21.7, h: 7.2 }
   ];
 
   const signalHotspots = [
@@ -282,18 +344,75 @@ Incident report: self monitored signal overload. Main physical response: angry e
     traits: 'Read the short signal description. Which of the four signal names sounds most like it?'
   };
 
-  const STORAGE_KEY = 'glorb-signal-category-sort-v3';
+
+  const learningIntentions = [
+    'Identify and distinguish Low, Steady, Rising and Overload signals.',
+    'Use emotion, body and behaviour clues to decide which signal someone may be showing.',
+    'Notice when a signal is changing and explain why responding early can help.',
+    'Choose a helpful response or strategy that matches the signal.'
+  ];
+
+  const STUDENT_KEY = 'glorb-earth-signals-student-v1';
+  let studentName = loadStudentName();
+
+  function loadStudentName() {
+    try { return String(localStorage.getItem(STUDENT_KEY) || '').trim().slice(0, 60); }
+    catch (_) { return ''; }
+  }
+
+  function saveStudentName(name) {
+    studentName = String(name || '').replace(/\s+/g, ' ').trim().slice(0, 60);
+    try {
+      if (studentName) localStorage.setItem(STUDENT_KEY, studentName);
+      else localStorage.removeItem(STUDENT_KEY);
+    } catch (_) {}
+    updateStudentChip();
+    return studentName;
+  }
+
+  function displayName() {
+    return studentName || 'Researcher';
+  }
+
+  function firstName() {
+    return displayName().split(/\s+/)[0] || 'Researcher';
+  }
+
+  function escapeHtml(value) {
+    return String(value ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  function pageIndexOfType(type) {
+    return mainPages.findIndex(page => page.type === type);
+  }
+
+  function summaryPageIndex() {
+    return mainPages.findIndex(page => page.source === 'story-09-summary.svg');
+  }
+
+  const STORAGE_KEY = 'glorb-signal-category-sort-v4';
   let sortState = loadSortState();
   let selectedItem = null;
   let lastCheckWrong = [];
   let largeClues = false;
   let helperTimer = null;
 
+  const VIEWED_KEY = 'glorb-viewed-interactions-v2';
+  let viewedInteractions = loadViewedInteractions();
+
   let pageIndex = 0;
   let modalData = null;
   let speechActive = false;
   let touchStartX = null;
   let toastTimer = null;
+
+  const studentChip = document.getElementById('studentChip');
+  const studentChipName = document.getElementById('studentChipName');
 
   const pageStage = document.getElementById('pageStage');
   const comicPage = document.getElementById('comicPage');
@@ -309,6 +428,14 @@ Incident report: self monitored signal overload. Main physical response: angry e
   const pagerDots = document.getElementById('pagerDots');
   const interactionNote = document.getElementById('interactionNote');
   const interactionNoteText = document.getElementById('interactionNoteText');
+  const pageTask = document.getElementById('pageTask');
+  const pageTaskStep = document.getElementById('pageTaskStep');
+  const pageTaskEyebrow = document.getElementById('pageTaskEyebrow');
+  const pageTaskTitle = document.getElementById('pageTaskTitle');
+  const pageTaskText = document.getElementById('pageTaskText');
+  const pageTaskProgress = document.getElementById('pageTaskProgress');
+  const pageZoomBtn = document.getElementById('pageZoomBtn');
+  const pageReadBtn = document.getElementById('pageReadBtn');
 
   const speakBtn = document.getElementById('speakBtn');
   const transcriptSpeakBtn = document.getElementById('transcriptSpeakBtn');
@@ -328,6 +455,13 @@ Incident report: self monitored signal overload. Main physical response: angry e
   const modalCaption = document.getElementById('modalCaption');
   const toast = document.getElementById('toast');
 
+  function updateStudentChip() {
+    if (!studentChip || !studentChipName) return;
+    studentChip.hidden = !studentName;
+    studentChipName.textContent = studentName || '';
+    studentChip.setAttribute('aria-label', studentName ? `Mission researcher: ${studentName}. Change name.` : 'Enter researcher name');
+  }
+
   function setupDots() {
     pagerDots.innerHTML = mainPages.map((_, i) => `<span class="pager__dot${i === pageIndex ? ' is-active' : ''}"></span>`).join('');
   }
@@ -336,23 +470,131 @@ Incident report: self monitored signal overload. Main physical response: angry e
     [...pagerDots.children].forEach((dot, i) => dot.classList.toggle('is-active', i === pageIndex));
   }
 
+  function loadViewedInteractions() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(VIEWED_KEY) || '{}');
+      return {
+        incidents: Array.isArray(saved.incidents) ? saved.incidents.filter(id => signals.includes(id)) : [],
+        signals: Array.isArray(saved.signals) ? saved.signals.filter(id => signals.includes(id)) : []
+      };
+    } catch (_) {
+      return { incidents: [], signals: [] };
+    }
+  }
+
+  function saveViewedInteractions() {
+    try { localStorage.setItem(VIEWED_KEY, JSON.stringify(viewedInteractions)); } catch (_) {}
+  }
+
+  function hasViewed(type, id) {
+    return Boolean(viewedInteractions[type]?.includes(id));
+  }
+
+  function markViewed(type, id) {
+    if (!viewedInteractions[type] || hasViewed(type, id)) return;
+    viewedInteractions[type].push(id);
+    saveViewedInteractions();
+    updatePageTask(mainPages[pageIndex]);
+    renderHotspots(mainPages[pageIndex]?.interactive);
+  }
+
+  function progressMarkup(type) {
+    const labels = { low: 'LOW', steady: 'STEADY', rising: 'RISING', overload: 'OVERLOAD' };
+    return signals.map(id => `
+      <span class="page-task__chip${hasViewed(type, id) ? ' is-done' : ''}">
+        <b>${hasViewed(type, id) ? '✓' : '○'}</b>${labels[id]}
+      </span>`).join('');
+  }
+
+  function updatePageTask(p = mainPages[pageIndex]) {
+    if (!pageTask) return;
+    if (!p || ['welcome', 'sortboard', 'results', 'certificate'].includes(p.type)) {
+      pageTask.hidden = true;
+      return;
+    }
+
+    pageTask.hidden = false;
+    pageTask.className = 'page-task';
+    pageTaskStep.textContent = '1';
+    pageTaskProgress.hidden = true;
+    pageTaskProgress.innerHTML = '';
+    pageZoomBtn.hidden = !p.source;
+    pageReadBtn.hidden = !p.transcript;
+
+    const name = firstName();
+
+    if (p.interactive === 'incidents') {
+      const count = viewedInteractions.incidents.length;
+      pageTask.classList.add('page-task--interactive');
+      pageTaskStep.textContent = '4';
+      pageTaskEyebrow.textContent = `${name.toUpperCase()} // ${count} OF 4 OPENED`;
+      pageTaskTitle.textContent = 'OPEN ALL 4 INCIDENT LOGS';
+      pageTaskText.textContent = 'Find the four OPEN LOG buttons on the page. Open each one, compare the examples, then continue.';
+      pageTaskProgress.hidden = false;
+      pageTaskProgress.innerHTML = progressMarkup('incidents');
+      return;
+    }
+
+    if (p.interactive === 'signals') {
+      const count = viewedInteractions.signals.length;
+      pageTask.classList.add('page-task--interactive');
+      pageTaskStep.textContent = '4';
+      pageTaskEyebrow.textContent = `${name.toUpperCase()} // ${count} OF 4 EXPLORED`;
+      pageTaskTitle.textContent = 'EXPLORE THE FOUR SIGNALS';
+      pageTaskText.textContent = 'Open each EXPLORE button. Look at the feelings, body clues and what can help for each signal.';
+      pageTaskProgress.hidden = false;
+      pageTaskProgress.innerHTML = progressMarkup('signals');
+      return;
+    }
+
+    if (pageIndex === summaryPageIndex()) {
+      pageTask.classList.add('page-task--review');
+      pageTaskEyebrow.textContent = `${name.toUpperCase()} // QUICK REVIEW`;
+      pageTaskTitle.textContent = 'LOOK OVER THE FOUR SIGNALS';
+      pageTaskText.textContent = 'Use Zoom Page if the summary is small. When you are ready, choose Start Sort Mission.';
+      return;
+    }
+
+    pageTaskEyebrow.textContent = `${name.toUpperCase()} // STORY`;
+    pageTaskTitle.textContent = pageIndex <= 4 ? 'READ OR LISTEN' : 'READ WHAT HAPPENS NEXT';
+    pageTaskText.textContent = 'Follow this part of Glorb’s story. If the page feels small, choose Zoom Page +. You can also use Read Aloud.';
+  }
+
+
+  function pageCounterText(p) {
+    if (p?.type === 'welcome') return 'MISSION START';
+    if (p?.type === 'sortboard') return 'SORT';
+    if (p?.type === 'results') return 'REPORTS';
+    if (p?.type === 'certificate') return 'CERTIFICATE';
+    const stories = mainPages.filter(page => page.source);
+    const idx = stories.indexOf(p);
+    return idx >= 0 ? `STORY ${String(idx + 1).padStart(2, '0')} / ${String(stories.length).padStart(2, '0')}` : '';
+  }
+
   function renderPage({animate = true} = {}) {
     const p = mainPages[pageIndex];
     stopSpeech();
     closeModal(false);
     selectedItem = null;
+    updateStudentChip();
 
     pageKicker.textContent = p.kicker;
-    pageCounter.textContent = `${String(pageIndex + 1).padStart(2, '0')} / ${String(mainPages.length).padStart(2, '0')}`;
+    pageCounter.textContent = pageCounterText(p);
     transcriptTitle.textContent = p.title;
-    transcriptText.textContent = p.transcript || '';
+    transcriptText.textContent = personalizeText(p.transcript || '');
     prevBtn.disabled = pageIndex === 0;
     nextBtn.disabled = false;
 
-    if (p.type === 'results') {
-      nextLabel.textContent = 'RESTART STORY';
+    if (p.type === 'welcome') {
+      nextLabel.textContent = studentName ? 'START MISSION' : 'ENTER NAME';
+      nextBtn.querySelector('[aria-hidden="true"]:last-child').textContent = '→';
+    } else if (p.type === 'certificate') {
+      nextLabel.textContent = 'RESTART MISSION';
       nextBtn.querySelector('[aria-hidden="true"]:last-child').textContent = '↻';
-    } else if (pageIndex === 8) {
+    } else if (p.type === 'results') {
+      nextLabel.textContent = 'VIEW CERTIFICATE';
+      nextBtn.querySelector('[aria-hidden="true"]:last-child').textContent = '→';
+    } else if (pageIndex === summaryPageIndex()) {
       nextLabel.textContent = 'START SORT MISSION';
       nextBtn.querySelector('[aria-hidden="true"]:last-child').textContent = '→';
     } else if (p.type === 'sortboard') {
@@ -364,11 +606,14 @@ Incident report: self monitored signal overload. Main physical response: angry e
     }
 
     updateDots();
-    updateInteractionNote(p.interactive);
+    updateInteractionNote(null);
+    updatePageTask(p);
     history.replaceState(null, '', `#page=${pageIndex + 1}`);
 
-    if (p.type === 'sortboard' || p.type === 'results') {
+    if (['welcome', 'sortboard', 'results', 'certificate'].includes(p.type)) {
       pageStage.classList.add('is-activity');
+      pageStage.classList.toggle('is-welcome', p.type === 'welcome');
+      pageStage.classList.toggle('is-certificate', p.type === 'certificate');
       pageStage.classList.remove('is-changing');
       comicPage.hidden = true;
       hotspotLayer.innerHTML = '';
@@ -376,12 +621,14 @@ Incident report: self monitored signal overload. Main physical response: angry e
       tapPrev.hidden = true;
       tapNext.hidden = true;
 
-      if (p.type === 'sortboard') renderSortBoard();
-      else renderResultsPage();
+      if (p.type === 'welcome') renderWelcomePage();
+      else if (p.type === 'sortboard') renderSortBoard();
+      else if (p.type === 'results') renderResultsPage();
+      else renderCertificatePage();
       return;
     }
 
-    pageStage.classList.remove('is-activity');
+    pageStage.classList.remove('is-activity', 'is-welcome', 'is-certificate');
     activityStage.hidden = true;
     activityStage.innerHTML = '';
     comicPage.hidden = false;
@@ -406,6 +653,332 @@ Incident report: self monitored signal overload. Main physical response: angry e
     preload.src = nextSrc;
   }
 
+
+  function personalizeText(text) {
+    return String(text || '')
+      .replace(/\{\{name\}\}/g, displayName())
+      .replace(/\{\{firstName\}\}/g, firstName());
+  }
+
+  function renderWelcomePage() {
+    const saved = escapeHtml(studentName);
+    activityStage.innerHTML = `
+      <div class="mission-welcome">
+        <section class="mission-welcome__hero">
+          <div class="mission-welcome__glorb" aria-hidden="true">
+            <img src="${A}sort/glorb-helper.png" alt="">
+          </div>
+          <div class="mission-welcome__copy">
+            <span class="mission-welcome__eyebrow">GLORB // EARTH RESEARCH DIVISION</span>
+            <h1>EARTH SIGNALS MISSION</h1>
+            <p>Help Glorb work out how humans show what is happening on the inside.</p>
+            <div class="mission-route" aria-label="Mission steps">
+              <div><b>1</b><span><strong>FOLLOW THE STORY</strong><small>Read or listen to Glorb’s field notes.</small></span></div>
+              <div><b>2</b><span><strong>INVESTIGATE 4 SIGNALS</strong><small>Open the clues and compare what changes.</small></span></div>
+              <div><b>3</b><span><strong>SORT THE EVIDENCE</strong><small>Match 20 visual clues to the correct signal.</small></span></div>
+              <div><b>4</b><span><strong>COMPLETE THE MISSION</strong><small>Generate the reports and your certificate.</small></span></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mission-welcome__learning" aria-labelledby="learningTitle">
+          <span>WHAT YOU WILL LEARN</span>
+          <h2 id="learningTitle">BY THE END, I CAN…</h2>
+          <ul>
+            ${learningIntentions.map(item => `<li><span aria-hidden="true">✓</span>${escapeHtml(item)}</li>`).join('')}
+          </ul>
+        </section>
+
+        <form class="mission-name-card" id="missionNameForm">
+          <div>
+            <label for="missionName">RESEARCHER NAME</label>
+            <p>Enter your name so Glorb can talk to you during the mission and make your certificate at the end.</p>
+          </div>
+          <div class="mission-name-card__entry">
+            <input id="missionName" name="missionName" type="text" maxlength="60" autocomplete="name"
+              placeholder="Type your name…" value="${saved}" aria-describedby="missionNameHelp" required>
+            <button type="submit">START MISSION →</button>
+          </div>
+          <small id="missionNameHelp">Your name stays in this browser only. It is used for your mission and certificate.</small>
+        </form>
+
+        <div class="mission-access">
+          <strong>NEED A LITTLE HELP?</strong>
+          <span>Every story page has <b>READ ALOUD</b> and <b>ZOOM PAGE +</b>. The sort has clue zoom and <b>HELP ME, GLORB</b>.</span>
+        </div>
+      </div>`;
+
+    const form = document.getElementById('missionNameForm');
+    const input = document.getElementById('missionName');
+    form?.addEventListener('submit', event => {
+      event.preventDefault();
+      const name = saveStudentName(input?.value);
+      if (!name) {
+        input?.focus();
+        showToast('ENTER YOUR NAME TO START THE MISSION.');
+        return;
+      }
+      pageIndex = 1;
+      renderPage();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      showToast(`MISSION STARTED — GOOD LUCK, ${firstName().toUpperCase()}!`);
+    });
+    window.setTimeout(() => input?.focus(), 80);
+  }
+
+  function certificateDate() {
+    try {
+      return new Date().toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
+    } catch (_) {
+      return new Date().toDateString();
+    }
+  }
+
+  function certificateMarkup() {
+    const name = escapeHtml(displayName());
+    return `
+      <article class="mission-certificate" id="missionCertificate" aria-label="Glorb Earth Signals Mission certificate for ${name}">
+        <div class="mission-certificate__frame">
+          <header class="mission-certificate__top">
+            <div>
+              <span>ZORBAX-9 RESEARCH DIVISION</span>
+              <strong>MISSION RECORD // VERIFIED</strong>
+            </div>
+            <div class="mission-certificate__stamp">✓<small>COMPLETE</small></div>
+          </header>
+
+          <div class="mission-certificate__main">
+            <span class="mission-certificate__eyebrow">CERTIFICATE OF MISSION COMPLETION</span>
+            <p class="mission-certificate__certifies">THIS CERTIFIES THAT</p>
+            <h1>${name}</h1>
+            <p class="mission-certificate__completed">completed the</p>
+            <h2>GLORB // EARTH SIGNALS MISSION</h2>
+            <p class="mission-certificate__summary">
+              During the mission, ${name} followed Glorb’s Earth field notes, investigated the four signal states,
+              explored examples, and correctly sorted 20 visual clues into <b>Low, Steady, Rising</b> and <b>Signal Overload</b>.
+            </p>
+
+            <section class="mission-certificate__learning">
+              <h3>LEARNING INTENTIONS MET</h3>
+              <ul>${learningIntentions.map(item => `<li>✓ ${escapeHtml(item)}</li>`).join('')}</ul>
+            </section>
+
+            <p class="mission-certificate__ability">
+              <b>${name} is able to</b> notice signal clues, describe what they may look or feel like,
+              recognise when a signal is changing, and choose support that better matches the signal.
+            </p>
+          </div>
+
+          <footer class="mission-certificate__footer">
+            <div>
+              <span>${escapeHtml(certificateDate())}</span>
+              <small>DATE COMPLETED</small>
+            </div>
+            <div class="mission-certificate__glorb-sign">
+              <strong>Glorb</strong>
+              <small>CHIEF CURIOSITY OFFICER // ZORBAX-9</small>
+            </div>
+          </footer>
+        </div>
+      </article>`;
+  }
+
+  function renderCertificatePage() {
+    if (!isSortComplete()) {
+      activityStage.innerHTML = `
+        <div class="certificate-locked">
+          <img src="${A}sort/glorb-helper.png" alt="Glorb">
+          <span>MISSION RECORD</span>
+          <h2>CERTIFICATE LOCKED</h2>
+          <p>Finish the signal sort correctly first. Then Glorb can verify the mission.</p>
+          <button class="answer-button" type="button" data-back-to-sort>RETURN TO SORT →</button>
+        </div>`;
+      activityStage.querySelector('[data-back-to-sort]')?.addEventListener('click', () => {
+        pageIndex = pageIndexOfType('sortboard');
+        renderPage();
+      });
+      return;
+    }
+
+    activityStage.innerHTML = `
+      <div class="certificate-screen">
+        <header class="certificate-screen__hero">
+          <img src="${A}sort/glorb-helper.png" alt="Glorb">
+          <div>
+            <span>MISSION COMPLETE // ${escapeHtml(firstName().toUpperCase())}</span>
+            <h2>YOU DID IT, ${escapeHtml(firstName().toUpperCase())}.</h2>
+            <p>Your mission record is verified. Print it, save it as a PDF, download it as an image, or share it.</p>
+          </div>
+        </header>
+
+        ${certificateMarkup()}
+
+        <div class="certificate-actions" aria-label="Certificate actions">
+          <button type="button" class="certificate-action certificate-action--primary" data-print-certificate>PRINT / SAVE PDF</button>
+          <button type="button" class="certificate-action" data-download-certificate>DOWNLOAD PNG</button>
+          <button type="button" class="certificate-action" data-share-certificate>SHARE</button>
+          <button type="button" class="certificate-action certificate-action--ghost" data-change-name>CHANGE NAME</button>
+        </div>
+
+        <p class="certificate-note">Tip: on a school computer, choose <b>Print / Save PDF</b>. On a tablet or phone, <b>Share</b> can send the certificate if your browser supports it.</p>
+      </div>`;
+
+    activityStage.querySelector('[data-print-certificate]')?.addEventListener('click', () => window.print());
+    activityStage.querySelector('[data-download-certificate]')?.addEventListener('click', downloadCertificatePng);
+    activityStage.querySelector('[data-share-certificate]')?.addEventListener('click', shareCertificate);
+    activityStage.querySelector('[data-change-name]')?.addEventListener('click', () => {
+      pageIndex = pageIndexOfType('welcome');
+      renderPage();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight, maxLines = 20) {
+    const words = String(text).split(/\s+/);
+    let line = '';
+    let lines = 0;
+    for (const word of words) {
+      const test = line ? `${line} ${word}` : word;
+      if (ctx.measureText(test).width > maxWidth && line) {
+        ctx.fillText(line, x, y + lines * lineHeight);
+        lines += 1;
+        line = word;
+        if (lines >= maxLines) break;
+      } else {
+        line = test;
+      }
+    }
+    if (line && lines < maxLines) {
+      ctx.fillText(line, x, y + lines * lineHeight);
+      lines += 1;
+    }
+    return y + lines * lineHeight;
+  }
+
+  function buildCertificateCanvas() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 1800;
+    canvas.height = 1270;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return null;
+
+    ctx.fillStyle = '#f7f3eb';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = '#171717';
+    ctx.lineWidth = 7;
+    ctx.strokeRect(55, 55, canvas.width - 110, canvas.height - 110);
+    ctx.lineWidth = 2;
+    ctx.strokeRect(73, 73, canvas.width - 146, canvas.height - 146);
+
+    ctx.fillStyle = '#171717';
+    ctx.textAlign = 'left';
+    ctx.font = '700 28px "Courier New", monospace';
+    ctx.fillText('ZORBAX-9 RESEARCH DIVISION', 115, 135);
+    ctx.font = '700 18px "Courier New", monospace';
+    ctx.fillText('MISSION RECORD // VERIFIED', 115, 170);
+
+    ctx.textAlign = 'center';
+    ctx.font = '700 22px "Courier New", monospace';
+    ctx.fillText('CERTIFICATE OF MISSION COMPLETION', 900, 250);
+    ctx.font = '700 18px Arial, sans-serif';
+    ctx.fillText('THIS CERTIFIES THAT', 900, 310);
+
+    ctx.font = '700 72px "Courier New", monospace';
+    ctx.fillText(displayName(), 900, 400);
+
+    ctx.font = '20px Arial, sans-serif';
+    ctx.fillText('completed the', 900, 450);
+    ctx.font = '700 46px "Courier New", monospace';
+    ctx.fillText('GLORB // EARTH SIGNALS MISSION', 900, 515);
+
+    ctx.font = '24px Arial, sans-serif';
+    ctx.textAlign = 'center';
+    wrapCanvasText(
+      ctx,
+      `${displayName()} followed Glorb’s Earth field notes, investigated the four signal states, explored examples, and correctly sorted 20 visual clues into Low, Steady, Rising and Signal Overload.`,
+      900, 580, 1360, 34, 4
+    );
+
+    ctx.textAlign = 'left';
+    ctx.font = '700 23px "Courier New", monospace';
+    ctx.fillText('LEARNING INTENTIONS MET', 190, 750);
+    ctx.font = '22px Arial, sans-serif';
+    let y = 795;
+    for (const item of learningIntentions) {
+      ctx.fillText('✓', 205, y);
+      y = wrapCanvasText(ctx, item, 245, y, 1300, 30, 2) + 12;
+    }
+
+    ctx.font = '700 21px Arial, sans-serif';
+    ctx.fillText(`${displayName()} is able to notice signal clues, describe what they may look or feel like,`, 190, 1040);
+    ctx.font = '21px Arial, sans-serif';
+    ctx.fillText('recognise when a signal is changing, and choose support that better matches the signal.', 190, 1075);
+
+    ctx.font = '700 18px "Courier New", monospace';
+    ctx.fillText(certificateDate().toUpperCase(), 190, 1160);
+    ctx.font = '14px "Courier New", monospace';
+    ctx.fillText('DATE COMPLETED', 190, 1187);
+
+    ctx.textAlign = 'right';
+    ctx.font = 'italic 44px "Courier New", monospace';
+    ctx.fillText('Glorb', 1610, 1148);
+    ctx.font = '14px "Courier New", monospace';
+    ctx.fillText('CHIEF CURIOSITY OFFICER // ZORBAX-9', 1610, 1187);
+    return canvas;
+  }
+
+  function certificateFileName() {
+    const safe = displayName().replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'researcher';
+    return `${safe}-Glorb-Earth-Signals-Certificate.png`;
+  }
+
+  function canvasToBlob(canvas) {
+    return new Promise(resolve => canvas.toBlob(resolve, 'image/png', 0.96));
+  }
+
+  async function downloadCertificatePng() {
+    const canvas = buildCertificateCanvas();
+    if (!canvas) {
+      showToast('CERTIFICATE DOWNLOAD ISN’T AVAILABLE IN THIS BROWSER.');
+      return;
+    }
+    const blob = await canvasToBlob(canvas);
+    if (!blob) return;
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = certificateFileName();
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    showToast('CERTIFICATE DOWNLOADED.');
+  }
+
+  async function shareCertificate() {
+    const canvas = buildCertificateCanvas();
+    if (!canvas) return;
+    const blob = await canvasToBlob(canvas);
+    const file = blob ? new File([blob], certificateFileName(), { type: 'image/png' }) : null;
+    const shareData = {
+      title: 'Glorb Earth Signals Mission Certificate',
+      text: `${displayName()} completed the Glorb Earth Signals Mission.`
+    };
+
+    try {
+      if (file && navigator.canShare?.({ files: [file] })) {
+        await navigator.share({ ...shareData, files: [file] });
+      } else if (navigator.share) {
+        await navigator.share({ ...shareData, url: location.href });
+      } else {
+        await downloadCertificatePng();
+        showToast('SHARING ISN’T AVAILABLE HERE — THE CERTIFICATE WAS DOWNLOADED INSTEAD.');
+      }
+    } catch (error) {
+      if (error?.name !== 'AbortError') showToast('SHARE CANCELLED OR NOT AVAILABLE.');
+    }
+  }
+
   function preloadAdjacent() {
     [pageIndex - 1, pageIndex + 1].forEach(i => {
       const p = mainPages[i];
@@ -421,16 +994,26 @@ Incident report: self monitored signal overload. Main physical response: angry e
     if (!type) return;
     const spots = type === 'incidents' ? incidentHotspots : signalHotspots;
     spots.forEach(spot => {
+      const viewed = hasViewed(type, spot.id);
+      const cfg = signalConfig[spot.id];
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = `hotspot hotspot--${type}`;
-      btn.setAttribute('aria-label', spot.label);
-      if (type === 'signals') btn.setAttribute('data-badge', 'ZOOM +');
+      btn.className = `hotspot hotspot--${type}${viewed ? ' is-viewed' : ''}`;
+      btn.setAttribute('aria-label', `${viewed ? 'Reopen' : 'Open'} ${spot.label.replace(/^Open /, '')}`);
       Object.assign(btn.style, {
         left: `${spot.x}%`, top: `${spot.y}%`, width: `${spot.w}%`, height: `${spot.h}%`
       });
+
+      const verb = type === 'incidents' ? 'OPEN LOG' : 'EXPLORE';
+      btn.innerHTML = `
+        <span class="hotspot__cta">
+          <b>${viewed ? '✓ OPENED' : `${verb} →`}</b>
+          <small>${cfg.short}</small>
+        </span>`;
+
       btn.addEventListener('click', (event) => {
         event.stopPropagation();
+        markViewed(type, spot.id);
         openDetail(type, spot.id);
       });
       hotspotLayer.appendChild(btn);
@@ -609,14 +1192,20 @@ Incident report: self monitored signal overload. Main physical response: angry e
         <header class="category-sort__intro category-sort__intro--clean">
           <div>
             <span class="sort-mission__eyebrow">GLORB // SIGNAL SORT MISSION</span>
-            <h2>SORT THE CLUES</h2>
-            <p>Put each clue into the signal it matches. Drag it, or tap a clue and then tap a square.</p>
+            <h2>SORT THE CLUES, ${escapeHtml(firstName().toUpperCase())}</h2>
+            <p>Put each clue into the signal it matches. Use <b>ZOOM +</b> if a clue is small, or ask Glorb for a hint.</p>
           </div>
           <div class="category-sort__counter" aria-label="${count} of ${evidenceDeck.length} clues placed">
             <strong>${count}/${evidenceDeck.length}</strong>
             <span>CLUES PLACED</span>
           </div>
         </header>
+
+        <div class="sort-steps" aria-label="How to complete the sort">
+          <div class="sort-step${!selectedItem && count === 0 ? ' is-current' : ''}"><span>1</span><strong>CHOOSE A CLUE</strong><small>Pick one from the Evidence Bank</small></div>
+          <div class="sort-step${selectedItem ? ' is-current' : ''}"><span>2</span><strong>MOVE IT TO A SIGNAL</strong><small>Drag it, or tap a signal square</small></div>
+          <div class="sort-step${count === evidenceDeck.length && !complete ? ' is-current' : ''}"><span>3</span><strong>CHECK YOUR SORT</strong><small>Glorb will mark anything to try again</small></div>
+        </div>
 
         <div class="sort-support-bar">
           <button class="glorb-help-button" type="button" data-ask-glorb>
@@ -667,7 +1256,7 @@ Incident report: self monitored signal overload. Main physical response: angry e
             <span>✓</span>
             <div>
               <strong>SORT VERIFIED.</strong>
-              <p>All 20 clues are in the correct signal. Glorb can now generate the completed reports.</p>
+              <p>Nice work, ${escapeHtml(firstName())}. All 20 clues are in the correct signal. Glorb can now generate the completed reports.</p>
             </div>
             <button class="generate-reports" type="button" data-generate-reports>GENERATE REPORTS →</button>
           </div>` : ''}
@@ -677,7 +1266,7 @@ Incident report: self monitored signal overload. Main physical response: angry e
           <img class="glorb-helper__face" src="${A}sort/glorb-helper.png" alt="Glorb">
           <div>
             <span>GLORB SAYS:</span>
-            <p id="glorbHelperText">Start with the dashboard symbols. They are the easiest clues.</p>
+            <p id="glorbHelperText">${escapeHtml(firstName())}, start with the dashboard symbols. They are the easiest clues.</p>
           </div>
         </aside>
       </div>`;
@@ -692,12 +1281,12 @@ Incident report: self monitored signal overload. Main physical response: angry e
           <header class="generated-results__hero">
             <span class="sort-mission__eyebrow">ZORBAX-9 // GENERATED REPORTS</span>
             <h2>REPORTS LOCKED.</h2>
-            <p>Finish sorting all 20 clues correctly first. The completed Glorb reports are the answer to the sort.</p>
+            <p>${escapeHtml(firstName())}, finish sorting all 20 clues correctly first. The completed reports are the answer to the sort.</p>
             <button class="answer-button" type="button" data-back-to-sort>RETURN TO SORT →</button>
           </header>
         </div>`;
       activityStage.querySelector('[data-back-to-sort]')?.addEventListener('click', () => {
-        pageIndex = 9;
+        pageIndex = pageIndexOfType('sortboard');
         renderPage();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
@@ -708,9 +1297,22 @@ Incident report: self monitored signal overload. Main physical response: angry e
       <div class="generated-results">
         <header class="generated-results__hero is-complete">
           <span class="sort-mission__eyebrow">ZORBAX-9 // SORT VERIFIED</span>
-          <h2>REPORTS GENERATED.</h2>
-          <p>You sorted the signal evidence correctly. These completed field reports show the answer.</p>
+          <h2>REPORTS GENERATED, ${escapeHtml(firstName().toUpperCase())}.</h2>
+          <p>You sorted the signal evidence correctly. Open any report to see how the clues fit together.</p>
         </header>
+
+        <div class="results-next-step">
+          <span>1</span>
+          <div>
+            <strong>CHECK YOUR GENERATED REPORTS</strong>
+            <p>Open any signal report for a full-size answer.</p>
+          </div>
+          <span>2</span>
+          <div>
+            <strong>GET YOUR MISSION CERTIFICATE</strong>
+            <p>Your name and learning intentions will be added automatically.</p>
+          </div>
+        </div>
 
         <div class="answer-grid answer-grid--generated">
           ${['steady', 'rising', 'overload', 'low'].map(signal => {
@@ -725,6 +1327,16 @@ Incident report: self monitored signal overload. Main physical response: angry e
           }).join('')}
         </div>
 
+        <div class="certificate-cta">
+          <img src="${A}sort/glorb-helper.png" alt="Glorb">
+          <div>
+            <span>FINAL STEP</span>
+            <strong>MISSION VERIFIED, ${escapeHtml(firstName().toUpperCase())}.</strong>
+            <p>Generate your printable and shareable certificate with the learning intentions you met.</p>
+          </div>
+          <button type="button" class="generate-reports" data-view-certificate>GET MY CERTIFICATE →</button>
+        </div>
+
         <div class="sort-results__footer">
           <button class="reset-sort" id="resetSortBtn" type="button">RESET SORT ACTIVITY</button>
           <span>The completed sheets are the answer guide for the sorting activity.</span>
@@ -733,6 +1345,11 @@ Incident report: self monitored signal overload. Main physical response: angry e
 
     activityStage.querySelectorAll('[data-answer]').forEach(btn => {
       btn.addEventListener('click', () => openAnswerGuide(btn.dataset.answer));
+    });
+    activityStage.querySelector('[data-view-certificate]')?.addEventListener('click', () => {
+      pageIndex = pageIndexOfType('certificate');
+      renderPage();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
     document.getElementById('resetSortBtn')?.addEventListener('click', resetSortMission);
   }
@@ -819,17 +1436,17 @@ Incident report: self monitored signal overload. Main physical response: angry e
     if (selectedItem && evidenceDeck.includes(selectedItem)) {
       const signal = correctSignalFor(selectedItem);
       const type = itemType(selectedItem);
-      openGlorbHelper(`${typeHints[type]} I’d look closely at the ${signalHelp[signal].title.toLowerCase()} square.`, signal);
+      openGlorbHelper(`${firstName()}, ${typeHints[type]} I’d look closely at the ${signalHelp[signal].title.toLowerCase()} square.`, signal);
       return;
     }
 
     const remaining = evidenceDeck.filter(item => !sortState.placements[item]);
     if (!remaining.length) {
-      openGlorbHelper('You placed every clue! Press “Check my sort” and I’ll tell you which ones need another look.');
+      openGlorbHelper(`${firstName()}, you placed every clue! Press “Check my sort” and I’ll tell you which ones need another look.`);
       return;
     }
 
-    openGlorbHelper('Start with the dashboard symbols: ✓, flame, !!! and the down arrow. They are the easiest clues. Then match the colours, faces and signal lines around them.');
+    openGlorbHelper(`${firstName()}, start with the dashboard symbols: ✓, flame, !!! and the down arrow. They are the easiest clues. Then match the colours, faces and signal lines around them.`);
   }
 
   function showSignalInfo(signal) {
@@ -976,7 +1593,7 @@ Incident report: self monitored signal overload. Main physical response: angry e
       checkSort();
       return;
     }
-    pageIndex = 10;
+    pageIndex = pageIndexOfType('results');
     renderPage();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -1014,7 +1631,7 @@ Incident report: self monitored signal overload. Main physical response: angry e
     selectedItem = null;
     lastCheckWrong = [];
     saveSortState();
-    pageIndex = 9;
+    pageIndex = pageIndexOfType('sortboard');
     renderPage();
     showToast('SORT ACTIVITY RESET.');
   }
@@ -1023,9 +1640,14 @@ Incident report: self monitored signal overload. Main physical response: angry e
     const current = mainPages[pageIndex];
 
     if (current.final && delta > 0) {
-      pageIndex = 0;
+      pageIndex = pageIndexOfType('welcome');
       renderPage();
       window.scrollTo({top: 0, behavior: 'smooth'});
+      return;
+    }
+
+    if (current.type === 'welcome' && delta > 0) {
+      startMissionFromWelcome();
       return;
     }
 
@@ -1037,10 +1659,10 @@ Incident report: self monitored signal overload. Main physical response: angry e
     const next = Math.max(0, Math.min(mainPages.length - 1, pageIndex + delta));
     if (next === pageIndex) return;
 
-    if (mainPages[next]?.type === 'results' && !isSortComplete()) {
-      pageIndex = 9;
+    if (['results', 'certificate'].includes(mainPages[next]?.type) && !isSortComplete()) {
+      pageIndex = pageIndexOfType('sortboard');
       renderPage();
-      showToast('SORT THE FOUR SIGNALS CORRECTLY BEFORE GENERATING THE REPORTS.');
+      showToast('SORT THE FOUR SIGNALS CORRECTLY BEFORE CONTINUING.');
       return;
     }
 
@@ -1049,14 +1671,59 @@ Incident report: self monitored signal overload. Main physical response: angry e
     window.scrollTo({top: 0, behavior: 'smooth'});
   }
 
+  function startMissionFromWelcome() {
+    const input = document.getElementById('missionName');
+    if (input && !saveStudentName(input.value)) {
+      input.focus();
+      showToast('ENTER YOUR NAME TO START THE MISSION.');
+      return;
+    }
+    if (!studentName) {
+      pageIndex = pageIndexOfType('welcome');
+      renderPage();
+      showToast('ENTER YOUR NAME TO START THE MISSION.');
+      return;
+    }
+    pageIndex = 1;
+    renderPage();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   function handleNext() {
     const current = mainPages[pageIndex];
+    if (current.type === 'welcome') {
+      startMissionFromWelcome();
+      return;
+    }
     if (current.type === 'sortboard') {
       if (isSortComplete()) generateReports();
       else checkSort();
       return;
     }
+    if (current.type === 'results') {
+      pageIndex = pageIndexOfType('certificate');
+      renderPage();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
     go(1);
+  }
+
+  function openPageZoom() {
+    const p = mainPages[pageIndex];
+    if (!p?.source) return;
+    stopSpeech();
+    modalData = { transcript: p.transcript || '' };
+    modalEyebrow.textContent = 'PAGE ZOOM';
+    modalTitle.textContent = p.title || 'GLORB FIELD NOTE';
+    modalCaption.textContent = 'Scroll to read the page at a larger size. Use the speaker button to hear it aloud.';
+    modalVisual.classList.remove('modal__visual--answer', 'modal__visual--clue', 'modal__visual--incident');
+    modalVisual.classList.add('modal__visual--page');
+    modalVisual.innerHTML = `<div class="page-zoom"><img src="${A + p.source}" alt="${p.alt || p.title || 'Glorb story page'} enlarged"></div>`;
+    detailModal.classList.add('is-open');
+    detailModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    window.setTimeout(() => modalCloseBtn.focus(), 10);
   }
 
   function openDetail(type, id) {
@@ -1100,7 +1767,7 @@ Incident report: self monitored signal overload. Main physical response: angry e
     detailModal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
     modalData = null;
-    modalVisual.classList.remove('modal__visual--answer', 'modal__visual--incident', 'modal__visual--clue');
+    modalVisual.classList.remove('modal__visual--answer', 'modal__visual--incident', 'modal__visual--clue', 'modal__visual--page');
     if (restoreFocus) window.setTimeout(() => pageStage.focus?.(), 0);
   }
 
@@ -1159,7 +1826,7 @@ Incident report: self monitored signal overload. Main physical response: angry e
   }
 
   function readCurrent() {
-    speak(modalData?.transcript || mainPages[pageIndex].transcript);
+    speak(personalizeText(modalData?.transcript || mainPages[pageIndex].transcript));
   }
 
   function showToast(message) {
@@ -1172,7 +1839,19 @@ Incident report: self monitored signal overload. Main physical response: angry e
   function initFromHash() {
     const match = location.hash.match(/page=(\d+)/);
     if (match) pageIndex = Math.max(0, Math.min(mainPages.length - 1, Number(match[1]) - 1));
+    if (!studentName) pageIndex = pageIndexOfType('welcome');
   }
+
+  studentChip?.addEventListener('click', () => {
+    pageIndex = pageIndexOfType('welcome');
+    renderPage();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  comicPage?.addEventListener('click', event => {
+    if (event.target !== comicPage || mainPages[pageIndex]?.type) return;
+    openPageZoom();
+  });
 
   prevBtn.addEventListener('click', () => go(-1));
   nextBtn.addEventListener('click', handleNext);
@@ -1182,7 +1861,9 @@ Incident report: self monitored signal overload. Main physical response: angry e
   transcriptBtn.addEventListener('click', () => toggleTranscript());
   closeTranscriptBtn.addEventListener('click', () => toggleTranscript(false));
   speakBtn.addEventListener('click', readCurrent);
-  transcriptSpeakBtn.addEventListener('click', () => speak(mainPages[pageIndex].transcript));
+  pageReadBtn?.addEventListener('click', readCurrent);
+  pageZoomBtn?.addEventListener('click', openPageZoom);
+  transcriptSpeakBtn.addEventListener('click', () => speak(personalizeText(mainPages[pageIndex].transcript)));
   modalSpeakBtn.addEventListener('click', readCurrent);
   modalCloseBtn.addEventListener('click', () => closeModal());
   modalBackdrop.addEventListener('click', () => closeModal());
@@ -1217,6 +1898,7 @@ Incident report: self monitored signal overload. Main physical response: angry e
   window.speechSynthesis?.addEventListener?.('voiceschanged', () => {});
 
   initFromHash();
+  updateStudentChip();
   setupDots();
   renderPage({animate: false});
 })();
