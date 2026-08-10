@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f4f1ea" />
+  <title>Glorb // Earth Field Notes</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app" id="app">
+    <header class="topbar">
+      <div class="brand" aria-label="Glorb Earth Field Notes">
+        <span class="brand__dot" aria-hidden="true"></span>
+        <span>GLORB // EARTH FIELD NOTES</span>
+      </div>
+
+      <div class="topbar__tools">
+        <button class="icon-button" id="transcriptBtn" type="button" aria-label="Show page transcript" aria-expanded="false" title="Show transcript">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14M5 9h14M5 13h9M5 17h11"/></svg>
+        </button>
+        <button class="icon-button" id="speakBtn" type="button" aria-label="Read this page aloud" aria-pressed="false" title="Read this page aloud">
+          <svg class="speaker-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h4l5 4V6L8 10H4Z"/><path d="M16 9c1 .8 1.5 1.8 1.5 3S17 14.2 16 15M18.5 6.7c1.8 1.4 2.8 3.2 2.8 5.3s-1 4-2.8 5.3"/></svg>
+          <svg class="stop-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="viewer" aria-live="polite">
+      <div class="viewer__meta">
+        <span id="pageKicker">FLIGHT RECORDER</span>
+        <span id="pageCounter">01 / 09</span>
+      </div>
+
+      <section class="page-shell" id="pageShell">
+        <div class="page-stage" id="pageStage">
+          <img class="comic-page" id="comicPage" alt="" draggable="false" />
+          <div class="hotspot-layer" id="hotspotLayer" aria-label="Interactive areas"></div>
+          <button class="page-tap page-tap--left" id="tapPrev" type="button" aria-label="Previous page"></button>
+          <button class="page-tap page-tap--right" id="tapNext" type="button" aria-label="Next page"></button>
+        </div>
+
+        <div class="interaction-note" id="interactionNote" hidden>
+          <span class="interaction-note__pulse" aria-hidden="true"></span>
+          <span id="interactionNoteText">THIS PAGE HAS CLICKABLE FIELD NOTES.</span>
+        </div>
+      </section>
+
+      <nav class="pager" aria-label="Comic navigation">
+        <button class="pager__button" id="prevBtn" type="button">
+          <span aria-hidden="true">←</span><span>BACK</span>
+        </button>
+        <div class="pager__dots" id="pagerDots" aria-hidden="true"></div>
+        <button class="pager__button pager__button--next" id="nextBtn" type="button">
+          <span id="nextLabel">NEXT</span><span aria-hidden="true">→</span>
+        </button>
+      </nav>
+
+      <p class="keyboard-hint">USE ← → KEYS, SWIPE, OR CLICK THE PAGE EDGES</p>
+    </main>
+
+    <aside class="transcript" id="transcriptPanel" aria-hidden="true">
+      <div class="transcript__head">
+        <div>
+          <span class="transcript__eyebrow">PAGE TRANSCRIPT</span>
+          <h2 id="transcriptTitle">FLIGHT RECORDER</h2>
+        </div>
+        <button class="icon-button icon-button--small" id="closeTranscriptBtn" type="button" aria-label="Close transcript">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <p id="transcriptText"></p>
+      <button class="transcript__read" id="transcriptSpeakBtn" type="button">READ THIS ALOUD</button>
+    </aside>
+
+    <div class="modal" id="detailModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal__backdrop" id="modalBackdrop" type="button" aria-label="Close detail"></button>
+      <div class="modal__card">
+        <header class="modal__header">
+          <div>
+            <span class="modal__eyebrow" id="modalEyebrow">GLORB FIELD NOTE</span>
+            <h2 id="modalTitle">DETAIL</h2>
+          </div>
+          <div class="modal__actions">
+            <button class="icon-button icon-button--small" id="modalSpeakBtn" type="button" aria-label="Read detail aloud" title="Read aloud">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h4l5 4V6L8 10H4Z"/><path d="M16 9c1 .8 1.5 1.8 1.5 3S17 14.2 16 15M18.5 6.7c1.8 1.4 2.8 3.2 2.8 5.3s-1 4-2.8 5.3"/></svg>
+            </button>
+            <button class="icon-button icon-button--small" id="modalCloseBtn" type="button" aria-label="Close detail">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+            </button>
+          </div>
+        </header>
+        <div class="modal__visual" id="modalVisual"></div>
+        <p class="modal__caption" id="modalCaption"></p>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
