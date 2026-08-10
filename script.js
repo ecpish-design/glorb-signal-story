@@ -214,58 +214,80 @@ Incident report: self monitored signal overload. Main physical response: angry e
     { id: 'emotions', label: 'EMOTION CLUES' },
     { id: 'equation', label: 'GLORB + DASHBOARD CLUE' },
     { id: 'symbol', label: 'DASHBOARD SYMBOL' },
-    { id: 'traits', label: 'SIGNAL DESCRIPTION' },
-    { id: 'body', label: 'LOOKS / FEELS LIKE' },
-    { id: 'help', label: 'WHAT CAN HELP' }
+    { id: 'traits', label: 'SIGNAL DESCRIPTION' }
   ];
 
   const signals = ['steady', 'rising', 'overload', 'low'];
 
-  // Mixed on purpose so students must sort by signal rather than by clue type.
+  // Five clear visual clues per signal. The longer "Looks / Feels Like" and
+  // "What Can Help" cards are intentionally kept out of the student sort to
+  // reduce reading load. They still appear in the completed reports.
   const evidenceDeck = [
     'wave-steady', 'emotions-rising', 'symbol-overload', 'traits-low',
-    'equation-steady', 'help-rising', 'body-overload', 'symbol-low',
-    'wave-rising', 'emotions-overload', 'traits-steady', 'equation-low',
-    'help-overload', 'body-steady', 'symbol-rising', 'wave-low',
-    'emotions-steady', 'traits-overload', 'equation-rising', 'help-low',
-    'body-rising', 'symbol-steady', 'wave-overload', 'emotions-low',
-    'traits-rising', 'equation-overload', 'help-steady', 'body-low'
+    'equation-steady', 'symbol-low', 'wave-rising', 'emotions-overload',
+    'traits-steady', 'equation-low', 'symbol-rising', 'wave-low',
+    'emotions-steady', 'traits-overload', 'equation-rising',
+    'symbol-steady', 'wave-overload', 'emotions-low', 'traits-rising',
+    'equation-overload'
   ];
 
   const itemWidths = {
-    wave: 46,
-    emotions: 64,
-    equation: 55,
-    symbol: 20,
-    traits: 38,
-    body: 43,
-    help: 44
+    wave: 47,
+    emotions: 66,
+    equation: 58,
+    symbol: 22,
+    traits: 43
   };
 
   const itemYHalf = {
     wave: 8,
-    emotions: 11,
-    equation: 9,
-    symbol: 10,
-    traits: 14,
-    body: 17,
-    help: 17
+    emotions: 12,
+    equation: 10,
+    symbol: 11,
+    traits: 15
   };
 
   const defaultPlacement = {
-    equation: { x: 29, y: 15 },
-    symbol: { x: 81, y: 15 },
-    wave: { x: 28, y: 36 },
-    emotions: { x: 63, y: 39 },
-    traits: { x: 24, y: 64 },
-    body: { x: 69, y: 64 },
-    help: { x: 50, y: 86 }
+    equation: { x: 30, y: 17 },
+    symbol: { x: 82, y: 17 },
+    wave: { x: 28, y: 42 },
+    emotions: { x: 64, y: 48 },
+    traits: { x: 28, y: 76 }
   };
 
-  const STORAGE_KEY = 'glorb-signal-category-sort-v2';
+  const signalHelp = {
+    steady: {
+      title: 'STEADY SIGNAL',
+      text: 'Calm, focused and ready. Look for smooth, settled clues and things working as they should.'
+    },
+    rising: {
+      title: 'RISING SIGNAL',
+      text: 'Something is starting to build. Look for clues that show more energy, tension or urgency.'
+    },
+    overload: {
+      title: 'SIGNAL OVERLOAD',
+      text: 'Everything feels too much and it can be hard to think clearly. Look for the strongest, most intense clues.'
+    },
+    low: {
+      title: 'LOW SIGNAL',
+      text: 'Energy has dropped. Look for clues that feel tired, slow, quiet or down.'
+    }
+  };
+
+  const typeHints = {
+    wave: 'Look at the shape of the line. Is it smooth, building, chaotic, or dropping?',
+    emotions: 'Look at the faces. What kind of energy do these feelings have?',
+    equation: 'Look at Glorb, the dashboard and what happens to the ship. What signal does that story match?',
+    symbol: 'This is one of Glorb’s dashboard symbols. Think about what the symbol is warning him about.',
+    traits: 'Read the short signal description. Which of the four signal names sounds most like it?'
+  };
+
+  const STORAGE_KEY = 'glorb-signal-category-sort-v3';
   let sortState = loadSortState();
   let selectedItem = null;
   let lastCheckWrong = [];
+  let largeClues = false;
+  let helperTimer = null;
 
   let pageIndex = 0;
   let modalData = null;
@@ -537,16 +559,20 @@ Incident report: self monitored signal overload. Main physical response: angry e
           <button class="placed-evidence placed-evidence--${type}${wrong ? ' is-wrong' : ''}${selectedItem === item ? ' is-selected' : ''}"
             type="button" draggable="true" data-item="${item}"
             style="left:${placement.x}%; top:${placement.y}%; width:${width}%"
-            aria-label="${itemLabel(item)} placed in ${cfg.label}. Drag to move it, or tap to select it.">
+            aria-label="${itemLabel(item)} placed in ${cfg.label}. Drag to move it, tap to select it, or use Zoom to inspect it.">
             <img src="${itemAssetByKey(item)}" alt="">
+            <span class="placed-evidence__zoom" data-zoom-item="${item}" aria-hidden="true">ZOOM +</span>
           </button>`;
       }).join('');
 
     return `
-      <section class="signal-bin signal-bin--${cfg.accent}${wrongHere ? ' has-wrong' : ''}${isSortComplete() ? ' is-verified' : ''}">
+      <section class="signal-bin signal-bin--${cfg.accent}${wrongHere ? ' has-wrong' : ''}${isSortComplete() ? ' is-verified' : ''}" data-signal-bin="${signal}">
         <header class="signal-bin__header">
           <h3>SIGNAL ${cfg.short}</h3>
-          <span>${count}/7</span>
+          <div class="signal-bin__tools">
+            <button class="signal-info" type="button" data-signal-info="${signal}" aria-label="Get a simple explanation of ${cfg.label}">?</button>
+            <span>${count}/5</span>
+          </div>
         </header>
         <div class="signal-bin__canvas" role="button" tabindex="0" data-signal="${signal}"
           aria-label="Drop clues for ${cfg.label} anywhere in this square">
@@ -567,8 +593,9 @@ Incident report: self monitored signal overload. Main physical response: angry e
       return `
         <button class="clue-card clue-card--${type}${selectedItem === item ? ' is-selected' : ''}"
           type="button" draggable="true" data-item="${item}"
-          aria-label="Select ${itemLabel(item).toLowerCase()} clue">
+          aria-label="Select ${itemLabel(item).toLowerCase()} clue. Use Zoom to inspect it more closely.">
           <img src="${itemAssetByKey(item)}" alt="">
+          <span class="clue-card__zoom" data-zoom-item="${item}" aria-hidden="true">ZOOM +</span>
         </button>`;
     }).join('');
   }
@@ -578,19 +605,28 @@ Incident report: self monitored signal overload. Main physical response: angry e
     const complete = isSortComplete();
 
     activityStage.innerHTML = `
-      <div class="category-sort">
-        <header class="category-sort__intro">
+      <div class="category-sort${largeClues ? ' is-large-clues' : ''}">
+        <header class="category-sort__intro category-sort__intro--clean">
           <div>
-            <span class="sort-mission__eyebrow">GLORB // SIGNAL SORT ACTIVITY</span>
-            <h2>SORT THE CLUES INTO THE FOUR SIGNALS</h2>
-            <p>Drag each clue into the signal it matches. <strong>It can go anywhere inside the square.</strong>
-            On a touch screen, tap a clue and then tap where you want it to go.</p>
+            <span class="sort-mission__eyebrow">GLORB // SIGNAL SORT MISSION</span>
+            <h2>SORT THE CLUES</h2>
+            <p>Put each clue into the signal it matches. Drag it, or tap a clue and then tap a square.</p>
           </div>
           <div class="category-sort__counter" aria-label="${count} of ${evidenceDeck.length} clues placed">
             <strong>${count}/${evidenceDeck.length}</strong>
             <span>CLUES PLACED</span>
           </div>
         </header>
+
+        <div class="sort-support-bar">
+          <button class="glorb-help-button" type="button" data-ask-glorb>
+            <img src="${A}sort/glorb-helper.png" alt="">
+            <span><strong>HELP ME, GLORB</strong><small>Get a hint without moving the clue</small></span>
+          </button>
+          <p id="selectionHelp">${selectedItem
+            ? 'CLUE SELECTED — NOW TAP A SIGNAL SQUARE.'
+            : 'TIP: START WITH THE FOUR DASHBOARD SYMBOLS.'}</p>
+        </div>
 
         <div class="sort-workspace">
           <div class="signal-bin-grid" aria-label="Four signal sorting areas">
@@ -600,10 +636,15 @@ Incident report: self monitored signal overload. Main physical response: angry e
           <section class="clue-bank" id="clueBank" data-clue-bank tabindex="0">
             <header class="clue-bank__header">
               <div>
-                <span class="sort-mission__eyebrow">PAGES 46–47 // MIXED EVIDENCE</span>
+                <span class="sort-mission__eyebrow">MIXED VISUAL CLUES</span>
                 <h3>EVIDENCE BANK</h3>
               </div>
-              <p>${evidenceDeck.length - count} CLUES LEFT TO SORT</p>
+              <div class="clue-bank__tools">
+                <p>${evidenceDeck.length - count} LEFT</p>
+                <button class="clue-size-toggle" type="button" data-large-clues>
+                  ${largeClues ? 'NORMAL SIZE' : 'LARGER CLUES +'}
+                </button>
+              </div>
             </header>
             <div class="clue-bank__grid">
               ${clueBankMarkup()}
@@ -611,16 +652,14 @@ Incident report: self monitored signal overload. Main physical response: angry e
           </section>
         </div>
 
-        <div class="sort-actions">
+        <div class="sort-actions sort-actions--clean">
           <div>
             <button class="check-sort" type="button" data-check-sort ${complete ? 'disabled' : ''}>
               ${complete ? 'SORT VERIFIED ✓' : 'CHECK MY SORT'}
             </button>
             <button class="reset-sort reset-sort--light" type="button" data-reset-sort>RESET</button>
           </div>
-          <p id="selectionHelp">${selectedItem
-            ? 'CLUE SELECTED — TAP A SIGNAL SQUARE TO PLACE IT. TAP THE EVIDENCE BANK TO RETURN IT.'
-            : 'DRAG A CLUE, OR TAP IT TO SELECT. YOU CAN MOVE CLUES BETWEEN SQUARES.'}</p>
+          <p>Wrong clues will be marked so you can try again.</p>
         </div>
 
         ${complete ? `
@@ -628,11 +667,19 @@ Incident report: self monitored signal overload. Main physical response: angry e
             <span>✓</span>
             <div>
               <strong>SORT VERIFIED.</strong>
-              <p>All 28 clues are in the correct signal. Glorb can now generate the completed reports.</p>
+              <p>All 20 clues are in the correct signal. Glorb can now generate the completed reports.</p>
             </div>
             <button class="generate-reports" type="button" data-generate-reports>GENERATE REPORTS →</button>
           </div>` : ''}
 
+        <aside class="glorb-helper" id="glorbHelper" aria-live="polite" hidden>
+          <button class="glorb-helper__close" type="button" data-close-glorb aria-label="Close Glorb hint">×</button>
+          <img class="glorb-helper__face" src="${A}sort/glorb-helper.png" alt="Glorb">
+          <div>
+            <span>GLORB SAYS:</span>
+            <p id="glorbHelperText">Start with the dashboard symbols. They are the easiest clues.</p>
+          </div>
+        </aside>
       </div>`;
 
     attachCategorySortListeners();
@@ -645,7 +692,7 @@ Incident report: self monitored signal overload. Main physical response: angry e
           <header class="generated-results__hero">
             <span class="sort-mission__eyebrow">ZORBAX-9 // GENERATED REPORTS</span>
             <h2>REPORTS LOCKED.</h2>
-            <p>Finish sorting all 28 clues correctly first. The completed Glorb reports are the answer to the sort.</p>
+            <p>Finish sorting all 20 clues correctly first. The completed Glorb reports are the answer to the sort.</p>
             <button class="answer-button" type="button" data-back-to-sort>RETURN TO SORT →</button>
           </header>
         </div>`;
@@ -700,14 +747,95 @@ Incident report: self monitored signal overload. Main physical response: angry e
     card.addEventListener('dragend', () => card.classList.remove('is-dragging'));
     card.addEventListener('click', event => {
       event.stopPropagation();
+
+      const zoomTarget = event.target.closest?.('[data-zoom-item]');
+      if (zoomTarget) {
+        openClueZoom(zoomTarget.dataset.zoomItem);
+        return;
+      }
+
       const same = selectedItem === card.dataset.item;
       selectedItem = same ? null : card.dataset.item;
       activityStage.querySelectorAll('[data-item]').forEach(c => c.classList.toggle('is-selected', c.dataset.item === selectedItem));
       const help = document.getElementById('selectionHelp');
       if (help) help.textContent = selectedItem
-        ? 'CLUE SELECTED — TAP A SIGNAL SQUARE TO PLACE IT. TAP THE EVIDENCE BANK TO RETURN IT.'
-        : 'DRAG A CLUE, OR TAP IT TO SELECT. YOU CAN MOVE CLUES BETWEEN SQUARES.';
+        ? 'CLUE SELECTED — NOW TAP A SIGNAL SQUARE.'
+        : 'TIP: START WITH THE FOUR DASHBOARD SYMBOLS.';
     });
+  }
+
+  function openClueZoom(item) {
+    if (!evidenceDeck.includes(item)) return;
+    stopSpeech();
+
+    modalData = { transcript: `${itemLabel(item)}. ${typeHints[itemType(item)] || 'Look closely at this clue.'} Which signal does it match?` };
+    modalEyebrow.textContent = 'EVIDENCE ZOOM';
+    modalTitle.textContent = itemLabel(item);
+    modalCaption.textContent = `${typeHints[itemType(item)] || 'Look closely at the clue.'} Which signal does it match?`;
+    modalVisual.classList.remove('modal__visual--incident', 'modal__visual--answer');
+    modalVisual.classList.add('modal__visual--clue');
+    modalVisual.innerHTML = `
+      <div class="clue-zoom">
+        <img src="${itemAssetByKey(item)}" alt="${itemLabel(item)} clue enlarged">
+        <p>${typeHints[itemType(item)] || 'Look closely at this clue.'}</p>
+      </div>`;
+
+    detailModal.classList.add('is-open');
+    detailModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    window.setTimeout(() => modalCloseBtn.focus(), 10);
+  }
+
+  function openGlorbHelper(message, targetSignal = null) {
+    clearTimeout(helperTimer);
+    const helper = document.getElementById('glorbHelper');
+    const text = document.getElementById('glorbHelperText');
+    if (!helper || !text) return;
+
+    text.textContent = message;
+    helper.hidden = false;
+    helper.classList.add('is-visible');
+
+    activityStage.querySelectorAll('[data-signal-bin]').forEach(bin => {
+      bin.classList.toggle('is-hint-target', Boolean(targetSignal) && bin.dataset.signalBin === targetSignal);
+    });
+
+    helperTimer = window.setTimeout(() => {
+      helper.classList.remove('is-visible');
+      activityStage.querySelectorAll('[data-signal-bin]').forEach(bin => bin.classList.remove('is-hint-target'));
+      window.setTimeout(() => { if (helper) helper.hidden = true; }, 180);
+    }, 9000);
+  }
+
+  function closeGlorbHelper() {
+    clearTimeout(helperTimer);
+    const helper = document.getElementById('glorbHelper');
+    helper?.classList.remove('is-visible');
+    activityStage.querySelectorAll('[data-signal-bin]').forEach(bin => bin.classList.remove('is-hint-target'));
+    window.setTimeout(() => { if (helper) helper.hidden = true; }, 180);
+  }
+
+  function askGlorb() {
+    if (selectedItem && evidenceDeck.includes(selectedItem)) {
+      const signal = correctSignalFor(selectedItem);
+      const type = itemType(selectedItem);
+      openGlorbHelper(`${typeHints[type]} I’d look closely at the ${signalHelp[signal].title.toLowerCase()} square.`, signal);
+      return;
+    }
+
+    const remaining = evidenceDeck.filter(item => !sortState.placements[item]);
+    if (!remaining.length) {
+      openGlorbHelper('You placed every clue! Press “Check my sort” and I’ll tell you which ones need another look.');
+      return;
+    }
+
+    openGlorbHelper('Start with the dashboard symbols: ✓, flame, !!! and the down arrow. They are the easiest clues. Then match the colours, faces and signal lines around them.');
+  }
+
+  function showSignalInfo(signal) {
+    const info = signalHelp[signal];
+    if (!info) return;
+    openGlorbHelper(`${info.title}: ${info.text}`);
   }
 
   function attachCategorySortListeners() {
@@ -770,6 +898,18 @@ Incident report: self monitored signal overload. Main physical response: angry e
     activityStage.querySelector('[data-check-sort]')?.addEventListener('click', checkSort);
     activityStage.querySelector('[data-reset-sort]')?.addEventListener('click', resetSortMission);
     activityStage.querySelector('[data-generate-reports]')?.addEventListener('click', generateReports);
+    activityStage.querySelector('[data-ask-glorb]')?.addEventListener('click', askGlorb);
+    activityStage.querySelector('[data-close-glorb]')?.addEventListener('click', closeGlorbHelper);
+    activityStage.querySelector('[data-large-clues]')?.addEventListener('click', () => {
+      largeClues = !largeClues;
+      renderSortBoard();
+    });
+    activityStage.querySelectorAll('[data-signal-info]').forEach(btn => {
+      btn.addEventListener('click', event => {
+        event.stopPropagation();
+        showSignalInfo(btn.dataset.signalInfo);
+      });
+    });
   }
 
   function placeItem(item, targetSignal, clientX, clientY, zone) {
@@ -927,7 +1067,7 @@ Incident report: self monitored signal overload. Main physical response: angry e
     modalEyebrow.textContent = modalData.eyebrow;
     modalTitle.textContent = modalData.title;
     modalCaption.textContent = modalData.caption;
-    modalVisual.classList.remove('modal__visual--answer');
+    modalVisual.classList.remove('modal__visual--answer', 'modal__visual--clue');
     modalVisual.classList.toggle('modal__visual--incident', type === 'incidents');
 
     if (type === 'incidents') {
@@ -960,7 +1100,7 @@ Incident report: self monitored signal overload. Main physical response: angry e
     detailModal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
     modalData = null;
-    modalVisual.classList.remove('modal__visual--answer', 'modal__visual--incident');
+    modalVisual.classList.remove('modal__visual--answer', 'modal__visual--incident', 'modal__visual--clue');
     if (restoreFocus) window.setTimeout(() => pageStage.focus?.(), 0);
   }
 
