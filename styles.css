@@ -1249,3 +1249,88 @@ button, img { -webkit-tap-highlight-color: transparent; }
 @media (max-width: 720px) {
   .sort-workspace .clue-bank__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* ========================================================================
+   SIDE EVIDENCE BANK FIX — desktop / zoomed Mac browser widths
+   The earlier build stacked the bank underneath between 721px and 900px.
+   Keep it beside the four signal squares throughout that range instead.
+   ======================================================================== */
+@media (min-width: 721px) and (max-width: 900px) {
+  .viewer:has(.page-stage.is-activity) {
+    width: 100%;
+    max-width: none;
+    padding-inline: 14px;
+  }
+
+  .viewer:has(.page-stage.is-activity) .viewer__meta,
+  .page-shell:has(.page-stage.is-activity) {
+    width: 100%;
+    max-width: none;
+  }
+
+  .sort-workspace {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 250px;
+    gap: 10px;
+    align-items: start;
+  }
+
+  .sort-workspace .signal-bin-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+    padding: 8px;
+    margin: 0;
+  }
+
+  .sort-workspace .signal-bin__canvas {
+    min-height: 390px;
+  }
+
+  .sort-workspace .clue-bank {
+    position: sticky;
+    top: 70px;
+    max-height: calc(100dvh - 84px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+    padding: 10px;
+  }
+
+  .sort-workspace .clue-bank__header {
+    position: sticky;
+    top: -10px;
+    z-index: 8;
+    padding: 10px 0 8px;
+    margin: 0 0 8px;
+    background: #ece8e0;
+    border-bottom: 1px solid rgba(23,23,23,.12);
+  }
+
+  .sort-workspace .clue-bank__header h3 {
+    font-size: 16px;
+  }
+
+  .sort-workspace .clue-bank__header p {
+    font-size: 7px;
+  }
+
+  .sort-workspace .clue-bank__grid {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+
+  .sort-workspace .clue-card {
+    min-height: 82px;
+    padding: 5px;
+  }
+
+  .sort-workspace .clue-card img { height: 94px; }
+  .sort-workspace .clue-card--emotions img { height: 86px; }
+  .sort-workspace .clue-card--equation img { height: 72px; }
+  .sort-workspace .clue-card--wave img,
+  .sort-workspace .clue-card--symbol img { height: 66px; }
+  .sort-workspace .clue-card--traits img { height: 100px; }
+  .sort-workspace .clue-card--body img,
+  .sort-workspace .clue-card--help img { height: 124px; }
+}
