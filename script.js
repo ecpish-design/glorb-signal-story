@@ -68,39 +68,17 @@
       transcript: `Glorb's field guide summary. Signal overload. Rising signal. Steady signal. Low signal. Notice the signal early, then choose the kind of help that fits.`
     },
     {
-      type: 'sort',
-      signal: 'low',
-      kicker: 'SORT MISSION // REPORT 1 OF 4',
-      title: 'BUILD THE LOW SIGNAL REPORT',
-      transcript: `Glorb needs help organising the evidence. Build the low signal field report. Drag the correct signal clues into Signal Identification, the correct body clues into Physical Response, and the correct support card into Recommended Action. On a touch screen, tap a card and then tap the section where it belongs.`
-    },
-    {
-      type: 'sort',
-      signal: 'steady',
-      kicker: 'SORT MISSION // REPORT 2 OF 4',
-      title: 'BUILD THE STEADY SIGNAL REPORT',
-      transcript: `Build the steady signal field report. Choose the clues that show steady energy, steady awareness and a body that is calm and ready. Drag each correct clue into the matching report section.`
-    },
-    {
-      type: 'sort',
-      signal: 'rising',
-      kicker: 'SORT MISSION // REPORT 3 OF 4',
-      title: 'BUILD THE RISING SIGNAL REPORT',
-      transcript: `Build the rising signal field report. Choose the early warning clues that show energy, tension, reactivity and urgency are rising, then choose what can help before the signal gets bigger.`
-    },
-    {
-      type: 'sort',
-      signal: 'overload',
-      kicker: 'SORT MISSION // REPORT 4 OF 4',
-      title: 'BUILD THE SIGNAL OVERLOAD REPORT',
-      transcript: `Build the signal overload field report. Choose the clues that show the body is overwhelmed, ready to react, or unable to think clearly, then choose the support that fits overload.`
+      type: 'sortboard',
+      kicker: 'SORT MISSION // FOUR SIGNALS',
+      title: 'SORT THE SIGNAL CLUES',
+      transcript: `Glorb has collected all of the signal evidence, but it is mixed up. Drag every clue into one of the four signal categories: steady signal, rising signal, signal overload or low signal. The clues can be placed anywhere inside the matching signal box. When every clue has been sorted, check your work. If the sort is correct, Glorb will generate the four completed field reports.`
     },
     {
       type: 'results',
-      kicker: 'ZORBAX-9 // SORT MISSION',
-      title: 'COMPLETED FIELD REPORTS',
+      kicker: 'ZORBAX-9 // GENERATED REPORTS',
+      title: 'GLORB’S COMPLETED SIGNAL REPORTS',
       final: true,
-      transcript: `Review your progress. When all four reports are correct, Glorb unlocks the completed teacher answer guides for low signal, steady signal, rising signal and signal overload.`
+      transcript: `Sort verified. Glorb has generated the completed field reports for steady signal, rising signal, signal overload and low signal. Open any report to view the full answer guide.`
     }
   ];
 
@@ -232,28 +210,62 @@ Incident report: self monitored signal overload. Main physical response: angry e
   };
 
   const evidenceTypes = [
-    { id: 'wave', label: 'SIGNAL LINE', section: 'identification' },
-    { id: 'emotions', label: 'EMOTION CLUES', section: 'identification' },
-    { id: 'equation', label: 'GLORB + DASHBOARD CLUE', section: 'identification' },
-    { id: 'symbol', label: 'DASHBOARD SYMBOL', section: 'physical' },
-    { id: 'traits', label: 'SIGNAL DESCRIPTION', section: 'physical' },
-    { id: 'body', label: 'LOOKS / FEELS LIKE', section: 'physical' },
-    { id: 'help', label: 'WHAT CAN HELP', section: 'action' }
+    { id: 'wave', label: 'SIGNAL LINE' },
+    { id: 'emotions', label: 'EMOTION CLUES' },
+    { id: 'equation', label: 'GLORB + DASHBOARD CLUE' },
+    { id: 'symbol', label: 'DASHBOARD SYMBOL' },
+    { id: 'traits', label: 'SIGNAL DESCRIPTION' },
+    { id: 'body', label: 'LOOKS / FEELS LIKE' },
+    { id: 'help', label: 'WHAT CAN HELP' }
   ];
 
-  const evidenceOrder = {
-    wave: ['rising', 'low', 'steady', 'overload'],
-    emotions: ['overload', 'steady', 'rising', 'low'],
-    equation: ['steady', 'overload', 'low', 'rising'],
-    symbol: ['low', 'rising', 'overload', 'steady'],
-    traits: ['rising', 'steady', 'overload', 'low'],
-    body: ['low', 'overload', 'steady', 'rising'],
-    help: ['overload', 'low', 'rising', 'steady']
+  const signals = ['steady', 'rising', 'overload', 'low'];
+
+  // Mixed on purpose so students must sort by signal rather than by clue type.
+  const evidenceDeck = [
+    'wave-steady', 'emotions-rising', 'symbol-overload', 'traits-low',
+    'equation-steady', 'help-rising', 'body-overload', 'symbol-low',
+    'wave-rising', 'emotions-overload', 'traits-steady', 'equation-low',
+    'help-overload', 'body-steady', 'symbol-rising', 'wave-low',
+    'emotions-steady', 'traits-overload', 'equation-rising', 'help-low',
+    'body-rising', 'symbol-steady', 'wave-overload', 'emotions-low',
+    'traits-rising', 'equation-overload', 'help-steady', 'body-low'
+  ];
+
+  const itemWidths = {
+    wave: 46,
+    emotions: 64,
+    equation: 55,
+    symbol: 20,
+    traits: 38,
+    body: 43,
+    help: 44
   };
 
-  const STORAGE_KEY = 'glorb-signal-sort-v1';
+  const itemYHalf = {
+    wave: 8,
+    emotions: 11,
+    equation: 9,
+    symbol: 10,
+    traits: 14,
+    body: 17,
+    help: 17
+  };
+
+  const defaultPlacement = {
+    equation: { x: 29, y: 15 },
+    symbol: { x: 81, y: 15 },
+    wave: { x: 28, y: 36 },
+    emotions: { x: 63, y: 39 },
+    traits: { x: 24, y: 64 },
+    body: { x: 69, y: 64 },
+    help: { x: 50, y: 86 }
+  };
+
+  const STORAGE_KEY = 'glorb-signal-category-sort-v2';
   let sortState = loadSortState();
   let selectedItem = null;
+  let lastCheckWrong = [];
 
   let pageIndex = 0;
   let modalData = null;
@@ -313,6 +325,7 @@ Incident report: self monitored signal overload. Main physical response: angry e
     transcriptTitle.textContent = p.title;
     transcriptText.textContent = p.transcript || '';
     prevBtn.disabled = pageIndex === 0;
+    nextBtn.disabled = false;
 
     if (p.type === 'results') {
       nextLabel.textContent = 'RESTART STORY';
@@ -320,9 +333,9 @@ Incident report: self monitored signal overload. Main physical response: angry e
     } else if (pageIndex === 8) {
       nextLabel.textContent = 'START SORT MISSION';
       nextBtn.querySelector('[aria-hidden="true"]:last-child').textContent = '→';
-    } else if (p.type === 'sort' && p.signal === 'overload') {
-      nextLabel.textContent = 'RESULTS';
-      nextBtn.querySelector('[aria-hidden="true"]:last-child').textContent = '→';
+    } else if (p.type === 'sortboard') {
+      nextLabel.textContent = sortState.complete ? 'GENERATE REPORTS' : 'CHECK SORT';
+      nextBtn.querySelector('[aria-hidden="true"]:last-child').textContent = sortState.complete ? '→' : '✓';
     } else {
       nextLabel.textContent = 'NEXT';
       nextBtn.querySelector('[aria-hidden="true"]:last-child').textContent = '→';
@@ -332,7 +345,7 @@ Incident report: self monitored signal overload. Main physical response: angry e
     updateInteractionNote(p.interactive);
     history.replaceState(null, '', `#page=${pageIndex + 1}`);
 
-    if (p.type === 'sort' || p.type === 'results') {
+    if (p.type === 'sortboard' || p.type === 'results') {
       pageStage.classList.add('is-activity');
       pageStage.classList.remove('is-changing');
       comicPage.hidden = true;
@@ -341,7 +354,7 @@ Incident report: self monitored signal overload. Main physical response: angry e
       tapPrev.hidden = true;
       tapNext.hidden = true;
 
-      if (p.type === 'sort') renderSortPage(p.signal);
+      if (p.type === 'sortboard') renderSortBoard();
       else renderResultsPage();
       return;
     }
@@ -414,12 +427,33 @@ Incident report: self monitored signal overload. Main physical response: angry e
   }
 
 
+  function newSortState() {
+    return { placements: {}, complete: false };
+  }
+
   function loadSortState() {
     try {
-      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-      return saved && typeof saved === 'object' ? saved : {};
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+      if (!saved || typeof saved !== 'object' || !saved.placements || typeof saved.placements !== 'object') {
+        return newSortState();
+      }
+
+      const clean = newSortState();
+      evidenceDeck.forEach(item => {
+        const placement = saved.placements[item];
+        if (!placement || !signals.includes(placement.signal)) return;
+        const type = itemType(item);
+        const base = defaultPlacement[type] || { x: 50, y: 50 };
+        clean.placements[item] = {
+          signal: placement.signal,
+          x: Number.isFinite(Number(placement.x)) ? Number(placement.x) : base.x,
+          y: Number.isFinite(Number(placement.y)) ? Number(placement.y) : base.y
+        };
+      });
+      clean.complete = Boolean(saved.complete) && isPlacementSetCorrect(clean.placements);
+      return clean;
     } catch {
-      return {};
+      return newSortState();
     }
   }
 
@@ -429,317 +463,384 @@ Incident report: self monitored signal overload. Main physical response: angry e
     } catch {}
   }
 
-  function itemKey(type, signal) {
-    return `${type}-${signal}`;
+  function itemType(item) {
+    return String(item || '').split('-')[0];
   }
 
-  function itemAsset(type, signal) {
+  function correctSignalFor(item) {
+    return String(item || '').split('-').slice(-1)[0];
+  }
+
+  function itemAssetByKey(item) {
+    const type = itemType(item);
+    const signal = correctSignalFor(item);
     return `${A}sort/${type}-${signal}.png`;
   }
 
-  function isItemPlaced(type, signal) {
-    return sortState[itemKey(type, signal)] === signal;
+  function itemLabel(item) {
+    const type = evidenceTypes.find(t => t.id === itemType(item));
+    return type?.label || 'SIGNAL CLUE';
   }
 
-  function isSignalComplete(signal) {
-    return evidenceTypes.every(type => isItemPlaced(type.id, signal));
+  function placementCount() {
+    return Object.keys(sortState.placements).length;
   }
 
-  function completedCount() {
-    return Object.keys(signalConfig).filter(isSignalComplete).length;
+  function signalPlacementCount(signal) {
+    return Object.values(sortState.placements).filter(p => p.signal === signal).length;
   }
 
-  function allSignalsComplete() {
-    return completedCount() === 4;
+  function isPlacementSetCorrect(placements = sortState.placements) {
+    if (Object.keys(placements).length !== evidenceDeck.length) return false;
+    return evidenceDeck.every(item => placements[item]?.signal === correctSignalFor(item));
   }
 
-  function reportProgressMarkup(activeSignal) {
-    const pageBySignal = { low: 9, steady: 10, rising: 11, overload: 12 };
-    return Object.entries(signalConfig).map(([signal, cfg]) => {
-      const done = isSignalComplete(signal);
+  function isSortComplete() {
+    return Boolean(sortState.complete) && isPlacementSetCorrect();
+  }
+
+  function defaultCoordsFor(item, targetSignal) {
+    const type = itemType(item);
+    const base = defaultPlacement[type] || { x: 50, y: 50 };
+    const sameTypeCount = Object.entries(sortState.placements).filter(([key, placement]) =>
+      placement.signal === targetSignal && itemType(key) === type && key !== item
+    ).length;
+    const nudge = sameTypeCount * 4;
+    return {
+      x: Math.min(90, base.x + nudge),
+      y: Math.min(92, base.y + nudge)
+    };
+  }
+
+  function clampPlacement(item, x, y) {
+    const type = itemType(item);
+    const width = itemWidths[type] || 38;
+    const halfX = width / 2 + 2;
+    const halfY = itemYHalf[type] || 12;
+    return {
+      x: Math.max(halfX, Math.min(100 - halfX, x)),
+      y: Math.max(halfY, Math.min(100 - halfY, y))
+    };
+  }
+
+  function signalBinMarkup(signal) {
+    const cfg = signalConfig[signal];
+    const count = signalPlacementCount(signal);
+    const wrongHere = lastCheckWrong.some(item => sortState.placements[item]?.signal === signal);
+    const placed = Object.entries(sortState.placements)
+      .filter(([, placement]) => placement.signal === signal)
+      .map(([item, placement]) => {
+        const type = itemType(item);
+        const width = itemWidths[type] || 38;
+        const wrong = lastCheckWrong.includes(item);
+        return `
+          <button class="placed-evidence placed-evidence--${type}${wrong ? ' is-wrong' : ''}${selectedItem === item ? ' is-selected' : ''}"
+            type="button" draggable="true" data-item="${item}"
+            style="left:${placement.x}%; top:${placement.y}%; width:${width}%"
+            aria-label="${itemLabel(item)} placed in ${cfg.label}. Drag to move it, or tap to select it.">
+            <img src="${itemAssetByKey(item)}" alt="">
+          </button>`;
+      }).join('');
+
+    return `
+      <section class="signal-bin signal-bin--${cfg.accent}${wrongHere ? ' has-wrong' : ''}${isSortComplete() ? ' is-verified' : ''}">
+        <header class="signal-bin__header">
+          <h3>SIGNAL ${cfg.short}</h3>
+          <span>${count}/7</span>
+        </header>
+        <div class="signal-bin__canvas" role="button" tabindex="0" data-signal="${signal}"
+          aria-label="Drop clues for ${cfg.label} anywhere in this square">
+          ${count === 0 ? '<span class="signal-bin__placeholder">DROP CLUES ANYWHERE IN THIS SQUARE</span>' : ''}
+          ${placed}
+        </div>
+      </section>`;
+  }
+
+  function clueBankMarkup() {
+    const remaining = evidenceDeck.filter(item => !sortState.placements[item]);
+    if (!remaining.length) {
+      return `<div class="clue-bank__empty">ALL CLUES HAVE BEEN PLACED. CHECK YOUR SORT.</div>`;
+    }
+
+    return remaining.map(item => {
+      const type = itemType(item);
       return `
-        <button class="sort-progress__chip ${signal === activeSignal ? 'is-active' : ''} ${done ? 'is-complete' : ''}"
-          type="button" data-go-page="${pageBySignal[signal]}" aria-label="Open ${cfg.label} report">
-          <span class="sort-progress__status">${done ? '✓' : '○'}</span>
-          <span>${cfg.short}</span>
+        <button class="clue-card clue-card--${type}${selectedItem === item ? ' is-selected' : ''}"
+          type="button" draggable="true" data-item="${item}"
+          aria-label="Select ${itemLabel(item).toLowerCase()} clue">
+          <img src="${itemAssetByKey(item)}" alt="">
         </button>`;
     }).join('');
   }
 
-  function placedCardsMarkup(signal, section) {
-    const types = evidenceTypes.filter(t => t.section === section);
-    const placed = types.filter(t => isItemPlaced(t.id, signal));
-    if (!placed.length) {
-      const expected = types.length;
-      return `<span class="drop-zone__placeholder">DROP ${expected} ${expected === 1 ? 'CLUE' : 'CLUES'} HERE</span>`;
-    }
-    return placed.map(type => `
-      <div class="placed-card placed-card--${type.id}" data-item="${itemKey(type.id, signal)}">
-        <span class="placed-card__label">${type.label}</span>
-        <img src="${itemAsset(type.id, signal)}" alt="">
-      </div>`).join('');
-  }
-
-  function evidenceTrayMarkup() {
-    return evidenceTypes.map(type => {
-      const cards = evidenceOrder[type.id]
-        .filter(signal => !isItemPlaced(type.id, signal))
-        .map(signal => `
-          <button class="evidence-card evidence-card--${type.id}" type="button" draggable="true"
-            data-item="${itemKey(type.id, signal)}" data-type="${type.id}" data-signal="${signal}"
-            aria-label="Select ${type.label.toLowerCase()} option">
-            <img src="${itemAsset(type.id, signal)}" alt="">
-          </button>`).join('');
-
-      return `
-        <section class="evidence-group">
-          <div class="evidence-group__head">
-            <span>${type.label}</span>
-            <span>${cards ? 'CHOOSE ONE FOR EACH REPORT' : 'ALL PLACED ✓'}</span>
-          </div>
-          <div class="evidence-group__cards">
-            ${cards || '<span class="evidence-group__done">ALL FOUR HAVE BEEN LOGGED.</span>'}
-          </div>
-        </section>`;
-    }).join('');
-  }
-
-  function renderSortPage(signal) {
-    const cfg = signalConfig[signal];
-    const done = isSignalComplete(signal);
-    const count = evidenceTypes.filter(type => isItemPlaced(type.id, signal)).length;
+  function renderSortBoard() {
+    const count = placementCount();
+    const complete = isSortComplete();
 
     activityStage.innerHTML = `
-      <div class="sort-mission sort-mission--${cfg.accent}">
-        <header class="sort-mission__intro">
+      <div class="category-sort">
+        <header class="category-sort__intro">
           <div>
             <span class="sort-mission__eyebrow">GLORB // SIGNAL SORT ACTIVITY</span>
-            <h2>BUILD THE ${cfg.label} FIELD REPORT</h2>
-            <p>Drag the correct evidence into Glorb's blank report. On touch screens, <strong>tap a card</strong> and then tap the section where it belongs.</p>
+            <h2>SORT THE CLUES INTO THE FOUR SIGNALS</h2>
+            <p>Drag each clue into the signal it matches. <strong>It can go anywhere inside the square.</strong>
+            On a touch screen, tap a clue and then tap where you want it to go.</p>
           </div>
-          <div class="sort-mission__score" aria-label="${completedCount()} of 4 reports complete">
-            <strong>${completedCount()}/4</strong>
-            <span>REPORTS COMPLETE</span>
+          <div class="category-sort__counter" aria-label="${count} of ${evidenceDeck.length} clues placed">
+            <strong>${count}/${evidenceDeck.length}</strong>
+            <span>CLUES PLACED</span>
           </div>
         </header>
 
-        <div class="sort-progress" aria-label="Signal report progress">
-          ${reportProgressMarkup(signal)}
+        <div class="signal-bin-grid" aria-label="Four signal sorting areas">
+          ${['steady', 'rising', 'overload', 'low'].map(signalBinMarkup).join('')}
         </div>
 
-        <article class="field-report ${done ? 'is-complete' : ''}">
-          <header class="field-report__header">
-            <div class="field-report__division">
-              <strong>EARTH IDENTIFICATION</strong>
-              <span>SIGNAL TO EARTH EMOTIONS FORM</span>
-            </div>
-            <div class="field-report__stamp">INTERNAL USE ONLY</div>
-          </header>
-
-          <div class="field-report__subject">
-            <span><strong>SUBJECT:</strong> SELF MONITORED ${cfg.label}</span>
-            <span><strong>STATUS:</strong> ${done ? 'COMPLETE ✓' : `${count} / 7 CLUES LOGGED`}</span>
+        <div class="sort-actions">
+          <div>
+            <button class="check-sort" type="button" data-check-sort ${complete ? 'disabled' : ''}>
+              ${complete ? 'SORT VERIFIED ✓' : 'CHECK MY SORT'}
+            </button>
+            <button class="reset-sort reset-sort--light" type="button" data-reset-sort>RESET</button>
           </div>
+          <p id="selectionHelp">${selectedItem
+            ? 'CLUE SELECTED — TAP A SIGNAL SQUARE TO PLACE IT. TAP THE EVIDENCE BANK TO RETURN IT.'
+            : 'DRAG A CLUE, OR TAP IT TO SELECT. YOU CAN MOVE CLUES BETWEEN SQUARES.'}</p>
+        </div>
 
-          <section class="field-report__section">
-            <h3><span>1.</span> SIGNAL IDENTIFICATION</h3>
-            <div class="drop-zone" role="button" tabindex="0" data-signal="${signal}" data-section="identification"
-              aria-label="Signal identification drop area">
-              ${placedCardsMarkup(signal, 'identification')}
-            </div>
-          </section>
-
-          <section class="field-report__section">
-            <h3><span>2.</span> PHYSICAL RESPONSE</h3>
-            <div class="drop-zone" role="button" tabindex="0" data-signal="${signal}" data-section="physical"
-              aria-label="Physical response drop area">
-              ${placedCardsMarkup(signal, 'physical')}
-            </div>
-          </section>
-
-          <section class="field-report__section">
-            <h3><span>3.</span> RECOMMENDED ACTION</h3>
-            <div class="drop-zone drop-zone--action" role="button" tabindex="0" data-signal="${signal}" data-section="action"
-              aria-label="Recommended action drop area">
-              ${placedCardsMarkup(signal, 'action')}
-            </div>
-          </section>
-
-          <footer class="field-report__footer">
-            <span>SIGNAL ${cfg.short}</span>
-            <span>PAGE ${['overload','rising','steady','low'].indexOf(signal) + 1} OF 4</span>
-          </footer>
-
-          ${done ? `
-            <div class="field-report__unlocked">
-              <div>
-                <strong>REPORT VERIFIED ✓</strong>
-                <span>Glorb's completed answer sheet is now unlocked.</span>
-              </div>
-              <button class="answer-button" type="button" data-answer="${signal}">VIEW COMPLETED SHEET →</button>
-            </div>` : ''}
-        </article>
-
-        <section class="evidence-tray">
-          <header class="evidence-tray__header">
+        ${complete ? `
+          <div class="sort-success" id="sortSuccess">
+            <span>✓</span>
             <div>
-              <span class="sort-mission__eyebrow">PAGES 46–47 // EVIDENCE TRAY</span>
-              <h3>SELECT THE CORRECT CLUES</h3>
+              <strong>SORT VERIFIED.</strong>
+              <p>All 28 clues are in the correct signal. Glorb can now generate the completed reports.</p>
             </div>
-            <p id="selectionHelp">${selectedItem ? 'CARD SELECTED — NOW TAP A REPORT SECTION.' : 'DRAG A CARD, OR TAP IT TO SELECT.'}</p>
+            <button class="generate-reports" type="button" data-generate-reports>GENERATE REPORTS →</button>
+          </div>` : ''}
+
+        <section class="clue-bank" id="clueBank" data-clue-bank tabindex="0">
+          <header class="clue-bank__header">
+            <div>
+              <span class="sort-mission__eyebrow">PAGES 46–47 // MIXED EVIDENCE</span>
+              <h3>EVIDENCE BANK</h3>
+            </div>
+            <p>${evidenceDeck.length - count} CLUES LEFT TO SORT</p>
           </header>
-          ${evidenceTrayMarkup()}
+          <div class="clue-bank__grid">
+            ${clueBankMarkup()}
+          </div>
         </section>
       </div>`;
 
-    attachSortListeners();
+    attachCategorySortListeners();
   }
 
   function renderResultsPage() {
-    const doneCount = completedCount();
-    const allDone = allSignalsComplete();
+    if (!isSortComplete()) {
+      activityStage.innerHTML = `
+        <div class="generated-results generated-results--locked">
+          <header class="generated-results__hero">
+            <span class="sort-mission__eyebrow">ZORBAX-9 // GENERATED REPORTS</span>
+            <h2>REPORTS LOCKED.</h2>
+            <p>Finish sorting all 28 clues correctly first. The completed Glorb reports are the answer to the sort.</p>
+            <button class="answer-button" type="button" data-back-to-sort>RETURN TO SORT →</button>
+          </header>
+        </div>`;
+      activityStage.querySelector('[data-back-to-sort]')?.addEventListener('click', () => {
+        pageIndex = 9;
+        renderPage();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      return;
+    }
 
     activityStage.innerHTML = `
-      <div class="sort-results">
-        <header class="sort-results__hero ${allDone ? 'is-complete' : ''}">
-          <span class="sort-mission__eyebrow">ZORBAX-9 // FINAL CHECK</span>
-          <h2>${allDone ? 'MISSION COMPLETE.' : 'FIELD REPORTS STILL OPEN.'}</h2>
-          <p>${allDone
-            ? 'All four signal reports are correct. The completed teacher answer guides are unlocked below.'
-            : `${doneCount} of 4 reports are correct. Finish the remaining reports to unlock every completed sheet.`}</p>
+      <div class="generated-results">
+        <header class="generated-results__hero is-complete">
+          <span class="sort-mission__eyebrow">ZORBAX-9 // SORT VERIFIED</span>
+          <h2>REPORTS GENERATED.</h2>
+          <p>You sorted the signal evidence correctly. These completed field reports show the answer.</p>
         </header>
 
-        <div class="sort-progress sort-progress--results">
-          ${reportProgressMarkup(null)}
-        </div>
-
-        <div class="answer-grid">
-          ${Object.entries(signalConfig).map(([signal, cfg]) => {
-            const done = isSignalComplete(signal);
-            const pageBySignal = { low: 9, steady: 10, rising: 11, overload: 12 };
+        <div class="answer-grid answer-grid--generated">
+          ${['steady', 'rising', 'overload', 'low'].map(signal => {
+            const cfg = signalConfig[signal];
             return `
-              <article class="answer-card answer-card--${cfg.accent} ${done ? 'is-unlocked' : 'is-locked'}">
-                <div class="answer-card__status">${done ? 'UNLOCKED ✓' : 'LOCKED'}</div>
+              <article class="answer-card answer-card--${cfg.accent} is-unlocked">
+                <div class="answer-card__status">GENERATED ✓</div>
                 <h3>${cfg.label}</h3>
-                ${done
-                  ? `<img src="${A + cfg.answer}" alt="${cfg.label} completed Glorb report">
-                     <button class="answer-button" type="button" data-answer="${signal}">OPEN ANSWER GUIDE →</button>`
-                  : `<div class="answer-card__lock">?</div>
-                     <button class="answer-button answer-button--ghost" type="button" data-go-page="${pageBySignal[signal]}">FINISH THIS REPORT →</button>`}
+                <img src="${A + cfg.answer}" alt="${cfg.label} completed Glorb report">
+                <button class="answer-button" type="button" data-answer="${signal}">OPEN FULL REPORT →</button>
               </article>`;
           }).join('')}
         </div>
 
         <div class="sort-results__footer">
           <button class="reset-sort" id="resetSortBtn" type="button">RESET SORT ACTIVITY</button>
-          <span>Your answers are saved on this device while you work.</span>
+          <span>The completed sheets are the answer guide for the sorting activity.</span>
         </div>
       </div>`;
-
-    attachSortListeners();
-    document.getElementById('resetSortBtn')?.addEventListener('click', resetSortMission);
-  }
-
-  function attachSortListeners() {
-    activityStage.querySelectorAll('[data-go-page]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        pageIndex = Number(btn.dataset.goPage);
-        renderPage();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    });
 
     activityStage.querySelectorAll('[data-answer]').forEach(btn => {
       btn.addEventListener('click', () => openAnswerGuide(btn.dataset.answer));
     });
+    document.getElementById('resetSortBtn')?.addEventListener('click', resetSortMission);
+  }
 
-    activityStage.querySelectorAll('.evidence-card').forEach(card => {
-      card.addEventListener('dragstart', event => {
-        selectedItem = card.dataset.item;
-        event.dataTransfer?.setData('text/plain', selectedItem);
-        if (event.dataTransfer) event.dataTransfer.effectAllowed = 'move';
-        card.classList.add('is-dragging');
-      });
-      card.addEventListener('dragend', () => card.classList.remove('is-dragging'));
-      card.addEventListener('click', () => {
-        const same = selectedItem === card.dataset.item;
-        selectedItem = same ? null : card.dataset.item;
-        activityStage.querySelectorAll('.evidence-card').forEach(c => c.classList.toggle('is-selected', c.dataset.item === selectedItem));
-        const help = document.getElementById('selectionHelp');
-        if (help) help.textContent = selectedItem ? 'CARD SELECTED — NOW TAP A REPORT SECTION.' : 'DRAG A CARD, OR TAP IT TO SELECT.';
-      });
+  function attachDraggableClue(card) {
+    card.addEventListener('dragstart', event => {
+      selectedItem = card.dataset.item;
+      event.dataTransfer?.setData('text/plain', selectedItem);
+      if (event.dataTransfer) event.dataTransfer.effectAllowed = 'move';
+      card.classList.add('is-dragging');
     });
+    card.addEventListener('dragend', () => card.classList.remove('is-dragging'));
+    card.addEventListener('click', event => {
+      event.stopPropagation();
+      const same = selectedItem === card.dataset.item;
+      selectedItem = same ? null : card.dataset.item;
+      activityStage.querySelectorAll('[data-item]').forEach(c => c.classList.toggle('is-selected', c.dataset.item === selectedItem));
+      const help = document.getElementById('selectionHelp');
+      if (help) help.textContent = selectedItem
+        ? 'CLUE SELECTED — TAP A SIGNAL SQUARE TO PLACE IT. TAP THE EVIDENCE BANK TO RETURN IT.'
+        : 'DRAG A CLUE, OR TAP IT TO SELECT. YOU CAN MOVE CLUES BETWEEN SQUARES.';
+    });
+  }
 
-    activityStage.querySelectorAll('.drop-zone').forEach(zone => {
+  function attachCategorySortListeners() {
+    activityStage.querySelectorAll('.clue-card, .placed-evidence').forEach(attachDraggableClue);
+
+    activityStage.querySelectorAll('.signal-bin__canvas').forEach(zone => {
       zone.addEventListener('dragover', event => {
         event.preventDefault();
         zone.classList.add('is-dragover');
         if (event.dataTransfer) event.dataTransfer.dropEffect = 'move';
       });
-      zone.addEventListener('dragleave', () => zone.classList.remove('is-dragover'));
+      zone.addEventListener('dragleave', event => {
+        if (!zone.contains(event.relatedTarget)) zone.classList.remove('is-dragover');
+      });
       zone.addEventListener('drop', event => {
         event.preventDefault();
         zone.classList.remove('is-dragover');
         const item = event.dataTransfer?.getData('text/plain') || selectedItem;
-        if (item) attemptPlace(item, zone.dataset.signal, zone.dataset.section);
+        if (item) placeItem(item, zone.dataset.signal, event.clientX, event.clientY, zone);
       });
-      zone.addEventListener('click', () => {
-        if (selectedItem) attemptPlace(selectedItem, zone.dataset.signal, zone.dataset.section);
+      zone.addEventListener('click', event => {
+        if (!selectedItem) return;
+        placeItem(selectedItem, zone.dataset.signal, event.clientX, event.clientY, zone);
       });
       zone.addEventListener('keydown', event => {
         if ((event.key === 'Enter' || event.key === ' ') && selectedItem) {
           event.preventDefault();
-          attemptPlace(selectedItem, zone.dataset.signal, zone.dataset.section);
+          placeItem(selectedItem, zone.dataset.signal, null, null, zone);
         }
       });
     });
+
+    const bank = activityStage.querySelector('[data-clue-bank]');
+    if (bank) {
+      bank.addEventListener('dragover', event => {
+        event.preventDefault();
+        bank.classList.add('is-dragover');
+      });
+      bank.addEventListener('dragleave', event => {
+        if (!bank.contains(event.relatedTarget)) bank.classList.remove('is-dragover');
+      });
+      bank.addEventListener('drop', event => {
+        event.preventDefault();
+        bank.classList.remove('is-dragover');
+        const item = event.dataTransfer?.getData('text/plain') || selectedItem;
+        if (item && sortState.placements[item]) returnItemToBank(item);
+      });
+      bank.addEventListener('click', event => {
+        if (event.target.closest('[data-item]')) return;
+        if (selectedItem && sortState.placements[selectedItem]) returnItemToBank(selectedItem);
+      });
+      bank.addEventListener('keydown', event => {
+        if ((event.key === 'Enter' || event.key === ' ') && selectedItem && sortState.placements[selectedItem]) {
+          event.preventDefault();
+          returnItemToBank(selectedItem);
+        }
+      });
+    }
+
+    activityStage.querySelector('[data-check-sort]')?.addEventListener('click', checkSort);
+    activityStage.querySelector('[data-reset-sort]')?.addEventListener('click', resetSortMission);
+    activityStage.querySelector('[data-generate-reports]')?.addEventListener('click', generateReports);
   }
 
-  function attemptPlace(item, targetSignal, targetSection) {
-    const [type, itemSignal] = item.split('-');
-    const typeConfig = evidenceTypes.find(t => t.id === type);
-    if (!typeConfig || !signalConfig[itemSignal]) return;
+  function placeItem(item, targetSignal, clientX, clientY, zone) {
+    if (!evidenceDeck.includes(item) || !signals.includes(targetSignal)) return;
 
-    if (typeConfig.section !== targetSection) {
-      flashWrong(item);
-      showToast('NOT QUITE — THAT CLUE BELONGS IN A DIFFERENT PART OF THE REPORT.');
-      return;
+    let coords = defaultCoordsFor(item, targetSignal);
+    if (Number.isFinite(clientX) && Number.isFinite(clientY) && zone) {
+      const rect = zone.getBoundingClientRect();
+      if (rect.width && rect.height) {
+        coords = {
+          x: ((clientX - rect.left) / rect.width) * 100,
+          y: ((clientY - rect.top) / rect.height) * 100
+        };
+      }
     }
 
-    if (itemSignal !== targetSignal) {
-      flashWrong(item);
-      showToast('NOT QUITE — CHECK WHICH SIGNAL THAT CLUE MATCHES.');
-      return;
-    }
-
-    const wasComplete = isSignalComplete(targetSignal);
-    sortState[item] = targetSignal;
-    saveSortState();
+    coords = clampPlacement(item, coords.x, coords.y);
+    sortState.placements[item] = { signal: targetSignal, x: coords.x, y: coords.y };
+    sortState.complete = false;
+    lastCheckWrong = [];
     selectedItem = null;
-
-    if (!wasComplete && isSignalComplete(targetSignal)) {
-      showToast(`${signalConfig[targetSignal].label} REPORT COMPLETE — ANSWER SHEET UNLOCKED!`);
-    } else {
-      showToast('CORRECT — CLUE LOGGED.');
-    }
-
-    const current = mainPages[pageIndex];
-    if (current.type === 'sort') renderSortPage(current.signal);
-    else renderResultsPage();
+    saveSortState();
+    renderSortBoard();
   }
 
-  function flashWrong(item) {
-    const card = activityStage.querySelector(`[data-item="${item}"]`);
-    if (!card) return;
-    card.classList.remove('is-wrong');
-    void card.offsetWidth;
-    card.classList.add('is-wrong');
-    window.setTimeout(() => card.classList.remove('is-wrong'), 550);
+  function returnItemToBank(item) {
+    if (!sortState.placements[item]) return;
+    delete sortState.placements[item];
+    sortState.complete = false;
+    lastCheckWrong = [];
+    selectedItem = null;
+    saveSortState();
+    renderSortBoard();
+  }
+
+  function checkSort() {
+    const missing = evidenceDeck.length - placementCount();
+    if (missing > 0) {
+      lastCheckWrong = [];
+      showToast(`${missing} ${missing === 1 ? 'CLUE IS' : 'CLUES ARE'} STILL IN THE EVIDENCE BANK.`);
+      return;
+    }
+
+    const wrong = evidenceDeck.filter(item => sortState.placements[item]?.signal !== correctSignalFor(item));
+    if (wrong.length) {
+      lastCheckWrong = wrong;
+      sortState.complete = false;
+      saveSortState();
+      renderSortBoard();
+      showToast(`${wrong.length} ${wrong.length === 1 ? 'CLUE NEEDS' : 'CLUES NEED'} ANOTHER LOOK. WRONG SIGNALS ARE MARKED.`);
+      return;
+    }
+
+    lastCheckWrong = [];
+    sortState.complete = true;
+    saveSortState();
+    renderSortBoard();
+    showToast('SORT CORRECT — GLORB’S COMPLETED REPORTS ARE READY.');
+    window.setTimeout(() => document.getElementById('sortSuccess')?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 80);
+  }
+
+  function generateReports() {
+    if (!isSortComplete()) {
+      checkSort();
+      return;
+    }
+    pageIndex = 10;
+    renderPage();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function openAnswerGuide(signal) {
-    if (!isSignalComplete(signal)) {
-      showToast('COMPLETE THIS REPORT FIRST TO UNLOCK THE ANSWER GUIDE.');
+    if (!isSortComplete()) {
+      showToast('SORT ALL FOUR SIGNALS CORRECTLY FIRST TO GENERATE THE REPORTS.');
       return;
     }
     stopSpeech();
@@ -747,15 +848,15 @@ Incident report: self monitored signal overload. Main physical response: angry e
     modalData = {
       transcript: `Completed teacher answer guide for ${cfg.label}.`
     };
-    modalEyebrow.textContent = 'TEACHER ANSWER GUIDE // UNLOCKED';
+    modalEyebrow.textContent = 'COMPLETED GLORB REPORT // ANSWER';
     modalTitle.textContent = cfg.label;
-    modalCaption.textContent = 'Completed teacher answer guide, unlocked after this Glorb report was sorted correctly.';
+    modalCaption.textContent = 'This completed report is the answer generated after the signal clues are sorted correctly.';
     modalVisual.classList.remove('modal__visual--incident');
     modalVisual.classList.add('modal__visual--answer');
     modalVisual.innerHTML = `
       <div class="answer-guide">
         <div class="answer-guide__sheet">
-          <img src="${A + cfg.answer}" alt="${cfg.label} completed teacher answer guide">
+          <img src="${A + cfg.answer}" alt="${cfg.label} completed answer guide">
         </div>
       </div>`;
     detailModal.classList.add('is-open');
@@ -765,26 +866,54 @@ Incident report: self monitored signal overload. Main physical response: angry e
   }
 
   function resetSortMission() {
-    if (!window.confirm('Reset all four Glorb signal reports and return every clue to the evidence tray?')) return;
-    sortState = {};
+    if (!window.confirm('Reset the four-signal sort and return every clue to the evidence bank?')) return;
+    sortState = newSortState();
     selectedItem = null;
+    lastCheckWrong = [];
     saveSortState();
-    renderResultsPage();
+    pageIndex = 9;
+    renderPage();
     showToast('SORT ACTIVITY RESET.');
   }
 
   function go(delta) {
-    if (mainPages[pageIndex].final && delta > 0) {
+    const current = mainPages[pageIndex];
+
+    if (current.final && delta > 0) {
       pageIndex = 0;
       renderPage();
       window.scrollTo({top: 0, behavior: 'smooth'});
       return;
     }
+
+    if (current.type === 'sortboard' && delta > 0 && !isSortComplete()) {
+      checkSort();
+      return;
+    }
+
     const next = Math.max(0, Math.min(mainPages.length - 1, pageIndex + delta));
     if (next === pageIndex) return;
+
+    if (mainPages[next]?.type === 'results' && !isSortComplete()) {
+      pageIndex = 9;
+      renderPage();
+      showToast('SORT THE FOUR SIGNALS CORRECTLY BEFORE GENERATING THE REPORTS.');
+      return;
+    }
+
     pageIndex = next;
     renderPage();
     window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  function handleNext() {
+    const current = mainPages[pageIndex];
+    if (current.type === 'sortboard') {
+      if (isSortComplete()) generateReports();
+      else checkSort();
+      return;
+    }
+    go(1);
   }
 
   function openDetail(type, id) {
@@ -903,7 +1032,7 @@ Incident report: self monitored signal overload. Main physical response: angry e
   }
 
   prevBtn.addEventListener('click', () => go(-1));
-  nextBtn.addEventListener('click', () => go(1));
+  nextBtn.addEventListener('click', handleNext);
   tapPrev.addEventListener('click', () => go(-1));
   tapNext.addEventListener('click', () => go(1));
 
@@ -923,7 +1052,7 @@ Incident report: self monitored signal overload. Main physical response: angry e
       return;
     }
     if (detailModal.classList.contains('is-open') || transcriptPanel.classList.contains('is-open')) return;
-    if (event.key === 'ArrowRight') go(1);
+    if (event.key === 'ArrowRight') handleNext();
     if (event.key === 'ArrowLeft') go(-1);
     if (event.key.toLowerCase() === 'r') readCurrent();
   });

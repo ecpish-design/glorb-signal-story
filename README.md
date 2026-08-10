@@ -16,26 +16,24 @@ The image folder is intentionally named `assests` to match the current repositor
 - The four signal-category areas use `ZOOM +` buttons and open the detailed signal guides.
 - Read-aloud, transcripts, keyboard arrows, page-edge navigation and mobile swipe remain enabled for the comic.
 
-## New student Sort Activity
+## Revised final Sort Activity
 
-After the final signal summary, students enter a four-report Glorb sorting mission:
+After the story, students now get **one sorting screen with four large blank signal squares**:
 
-1. Low Signal
-2. Steady Signal
-3. Rising Signal
-4. Signal Overload
+- SIGNAL STEADY
+- SIGNAL RISING
+- SIGNAL OVERLOAD
+- SIGNAL LOW
 
-Each report begins blank and has three sections:
+All page 46–47 clues begin mixed together in one Evidence Bank. Students drag each clue into the signal category it matches. A clue can be dropped anywhere inside the square and can be moved between squares. On touch devices, students can tap a clue and then tap a location in a signal square. A placed clue can be returned to the Evidence Bank.
 
-- Signal Identification
-- Physical Response
-- Recommended Action
+The game does not force the clue into a report subsection while sorting. Students are only sorting by the four signal categories.
 
-Students sort the supplied page 46–47 evidence into the reports. There are seven evidence types: signal line, emotion clues, Glorb/dashboard equation, dashboard symbol, signal description, Looks/Feels Like, and What Can Help.
+When all 28 clues have been placed, students choose **CHECK MY SORT**. Incorrectly categorised clues are marked so they can try again. When every clue is in the correct signal, the sort is verified and **GENERATE REPORTS** unlocks.
 
-Students can drag and drop with a mouse, or tap a card and then tap a report section on touch devices. Incorrect choices return to the evidence tray with feedback. Correct work is saved in the browser while the student works.
+The next screen generates the four completed teacher answer guides. These completed reports are the answer to the sorting activity, and each can be opened full size.
 
-When a report is completely correct, its supplied teacher answer guide unlocks. The final results screen shows all four answer guides once all reports are complete. A Reset Sort Activity button is included.
+Progress is saved in the browser until the activity is reset.
 
 ## Upload
 
@@ -45,5 +43,3 @@ When a report is completely correct, its supplied teacher answer guide unlocks. 
 4. Commit to `main`.
 5. Wait for the newest GitHub Pages deployment to turn green.
 6. Hard-refresh the published site (`Command + Shift + R` in Chrome on Mac).
-
-Old unused assets can remain in the repository; this build only refers to the files included here.
